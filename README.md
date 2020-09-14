@@ -17,4 +17,4 @@
 
 - `BPMN` Scheme
 
-![picture](SDLC/BPMN__PostSeminarFeedback.PNG)
+![picture](SDLC/BPMN__PostSeminarFeedback.png)
