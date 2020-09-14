@@ -2,7 +2,8 @@
 
 ## SDLC
 
-- [`ERD Scheme`]
+- [ERD Scheme]
+
 ![picture](SDLC/ERD_PostSeminarFeedback.jpg)
 
 ### Use Case Diagram Scheme
