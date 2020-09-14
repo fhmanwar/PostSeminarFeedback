@@ -14,6 +14,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -33,6 +37,7 @@ namespace API.Controllers
             _configuration = config;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<List<UserVM>> GetAll()
         {
@@ -63,6 +68,7 @@ namespace API.Controllers
             return list;
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public UserVM GetID(string id)
         {
@@ -142,6 +148,7 @@ namespace API.Controllers
             return BadRequest("Not Successfully");
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult Update(string id, UserVM userVM)
         {
@@ -168,6 +175,7 @@ namespace API.Controllers
             return BadRequest("Not Successfully");
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {
@@ -248,7 +256,7 @@ namespace API.Controllers
                             RoleName = getData.Role.Name,
                             VerifyCode = getData.User.VerifyCode,
                         };
-                        return Ok(user);
+                        return Ok(GetJWT(user));
                     }
                     return BadRequest("Invalid credentials");
                 }
@@ -286,10 +294,31 @@ namespace API.Controllers
                         RoleName = getData.Role.Name,
                         VerifyCode = getData.User.VerifyCode,
                     };
-                    return StatusCode(200, user);
+                    return StatusCode(200, GetJWT(user));
                 }
             }
             return BadRequest("Data Not Valid");
+        }
+
+        private string GetJWT(UserVM userVM)
+        {
+            var claims = new List<Claim> {
+                            new Claim("Id", userVM.Id),
+                            new Claim("Name", userVM.Name),
+                            new Claim("Email", userVM.Email),
+                            new Claim("RoleName", userVM.RoleName),
+                            new Claim("VerifyCode", userVM.VerifyCode == null ? "" : userVM.VerifyCode),
+                        };
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                            _configuration["Jwt:Issuer"],
+                            _configuration["Jwt:Audience"],
+                            claims,
+                            expires: DateTime.UtcNow.AddDays(1),
+                            signingCredentials: signIn
+                        );
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
 
