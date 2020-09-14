@@ -13,8 +13,8 @@
 
 - `Use Case Diagram` Scheme
 
-![picture](SDLC/UCD__PostSeminarFeedback.jpg)
+![picture](SDLC/UCD_PostSeminarFeedback.jpg)
 
 - `BPMN` Scheme
 
-![picture](SDLC/BPMN__PostSeminarFeedback.png)
+![picture](SDLC/BPMN_PostSeminarFeedback.png)
