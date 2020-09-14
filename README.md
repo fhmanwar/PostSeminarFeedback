@@ -3,6 +3,9 @@
 ## [Table of Contents](#)
 
 - [SDLC](#sdlc)
+    - [ERD Scheme](#ERD-Scheme)
+    - [Use Case Diagram Scheme](#use-case-diagram-Scheme)
+    - [BPMN Scheme](#bpmn-Scheme)
 - [Installation](#installation)
 
 ## SDLC
