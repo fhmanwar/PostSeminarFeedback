@@ -37,7 +37,7 @@ namespace API.Controllers
         public async Task<List<UserVM>> GetAll()
         {
             List<UserVM> list = new List<UserVM>();
-            var getData = await _context.UserRole.Include("Role").Include("User").Include(x => x.User.Employee).ToListAsync();
+            var getData = await _context.UserRole.Include("Role").Include("User").Include(x => x.User.Employee).Where(x => x.User.Employee.isDelete == false).ToListAsync();
             if (getData.Count == 0)
             {
                 return null;
@@ -150,8 +150,11 @@ namespace API.Controllers
                 var getData = _context.UserRole.Include("Role").Include("User").Include(x => x.User.Employee).SingleOrDefault(x => x.UserId == id);
                 //var getId = _context.Users.SingleOrDefault(x => x.Id == id);
                 getData.User.Employee.Name = userVM.Name;
-                getData.User.Email = userVM.Email;
+                getData.User.Employee.NIK = userVM.NIK;
+                getData.User.Employee.AssignmentSite = userVM.Site;
                 getData.User.Employee.Phone = userVM.Phone;
+                getData.User.Employee.Address = userVM.Address;
+                getData.User.Email = userVM.Email;
                 if (!Bcrypt.Verify(userVM.Password, getData.User.Password))
                 {
                     getData.User.Password = Bcrypt.HashPassword(userVM.Password);
@@ -168,10 +171,127 @@ namespace API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {
-            var getId = _context.Users.Find(id);
-            _context.Users.Remove(getId);
+            var getData = _context.Employees.Include("User").SingleOrDefault(x => x.EmpId == id);
+            if (getData == null)
+            {
+                return BadRequest("Not Successfully");
+            }
+            getData.DeleteData = DateTimeOffset.Now;
+            getData.isDelete = true;
+
+            _context.Entry(getData).State = EntityState.Modified;
             _context.SaveChanges();
             return Ok(new { msg = "Successfully Delete" });
         }
+
+    }
+
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AuthsController : ControllerBase
+    {
+        readonly MyContext _context;
+        public IConfiguration _configuration;
+        readonly UsersController usersController;
+
+        public AuthsController(MyContext myContext, IConfiguration config)
+        {
+            _context = myContext;
+            _configuration = config;
+        }
+
+        [HttpPost]
+        [Route("Register")]
+        public IActionResult Register(UserVM userVM)
+        {
+            if (ModelState.IsValid)
+            {
+                return usersController.Create(userVM);
+            }
+            return BadRequest("Data Not Valid");
+        }
+
+        [HttpPost]
+        [Route("Login")]
+        public IActionResult Login(UserVM userVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var getData = _context.UserRole.Include("Role").Include("User").Include(x => x.User.Employee).SingleOrDefault(x => x.User.Email == userVM.Email);
+                if (getData == null)
+                {
+                    return NotFound();
+                }
+                else if (userVM.Password == null || userVM.Password.Equals(""))
+                {
+                    return BadRequest("Password must filled");
+                }
+                else if (!Bcrypt.Verify(userVM.Password, getData.User.Password))
+                {
+                    return BadRequest("Password is Wrong");
+                }
+                else
+                {
+                    if (getData != null)
+                    {
+                        var user = new UserVM()
+                        {
+                            Id = getData.User.Id,
+                            Name = getData.User.Employee.Name,
+                            NIK = getData.User.Employee.NIK,
+                            Site = getData.User.Employee.AssignmentSite,
+                            Email = getData.User.Email,
+                            Password = getData.User.Password,
+                            Phone = getData.User.Employee.Phone,
+                            Address = getData.User.Employee.Address,
+                            RoleID = getData.Role.Id,
+                            RoleName = getData.Role.Name,
+                            VerifyCode = getData.User.VerifyCode,
+                        };
+                        return Ok(user);
+                    }
+                    return BadRequest("Invalid credentials");
+                }
+            }
+            return BadRequest("Data Not Valid");
+        }
+
+        [HttpPost]
+        [Route("code")]
+        public IActionResult VerifyCode(UserVM userVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var getData = _context.UserRole.Include("Role").Include("User").Include(x => x.User.Employee).SingleOrDefault(x => x.User.Email == userVM.Email);
+                if (getData == null)
+                {
+                    return NotFound();
+                }
+                else if (userVM.VerifyCode != getData.User.VerifyCode)
+                {
+                    return BadRequest("Your Code is Wrong");
+                }
+                else
+                {
+                    getData.User.VerifyCode = null;
+                    _context.SaveChanges();
+                    var user = new UserVM()
+                    {
+                        Id = getData.User.Id,
+                        Name = getData.User.Employee.Name,
+                        Email = getData.User.Email,
+                        Password = getData.User.Password,
+                        Phone = getData.User.Employee.Phone,
+                        RoleID = getData.Role.Id,
+                        RoleName = getData.Role.Name,
+                        VerifyCode = getData.User.VerifyCode,
+                    };
+                    return StatusCode(200, user);
+                }
+            }
+            return BadRequest("Data Not Valid");
+        }
+
+
     }
 }
