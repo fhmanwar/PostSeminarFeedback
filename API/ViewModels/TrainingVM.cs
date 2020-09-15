@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace API.ViewModels
 {
-    public class TrainigVM
+    public class TrainingVM
     {
         public int Id { get; set; }
         public string Title { get; set; }

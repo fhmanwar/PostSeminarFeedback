@@ -1,4 +1,5 @@
-﻿using System;
+﻿using API.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace API.Models
 {
     [Table("TB_M_TypeTraining")]
-    public class TypeTraining
+    public class TypeTraining : BaseModel
     {
         [Key]
         public int Id { get; set; }

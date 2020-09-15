@@ -5,9 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Base\" />
-    <Folder Include="Repository\Data\" />
-    <Folder Include="Repository\Interface\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

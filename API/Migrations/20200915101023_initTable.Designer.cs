@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20200915084702_addModulSubmission")]
-    partial class addModulSubmission
+    [Migration("20200915101023_initTable")]
+    partial class initTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,7 +58,7 @@ namespace API.Migrations
 
                     b.Property<DateTimeOffset>("DeleteData");
 
-                    b.Property<int?>("QuestionId");
+                    b.Property<int>("QuestionId");
 
                     b.Property<float>("Rate");
 
@@ -91,7 +91,7 @@ namespace API.Migrations
 
                     b.Property<string>("QuestionDesc");
 
-                    b.Property<int?>("TrainingId");
+                    b.Property<int>("TrainingId");
 
                     b.Property<DateTimeOffset>("UpdateDate");
 
@@ -146,7 +146,7 @@ namespace API.Migrations
 
                     b.Property<string>("Title");
 
-                    b.Property<int?>("TypeId");
+                    b.Property<int>("TypeId");
 
                     b.Property<DateTimeOffset>("UpdateDate");
 
@@ -225,7 +225,8 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Question", "Question")
                         .WithMany()
-                        .HasForeignKey("QuestionId");
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("API.Models.User", "User")
                         .WithMany()
@@ -236,14 +237,16 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Training", "Training")
                         .WithMany()
-                        .HasForeignKey("TrainingId");
+                        .HasForeignKey("TrainingId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("API.Models.Training", b =>
                 {
                     b.HasOne("API.Models.TypeTraining", "Type")
                         .WithMany()
-                        .HasForeignKey("TypeId");
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("API.Models.User", "User")
                         .WithMany()

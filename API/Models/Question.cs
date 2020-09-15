@@ -1,4 +1,5 @@
-﻿using System;
+﻿using API.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,15 +9,20 @@ using System.Threading.Tasks;
 namespace API.Models
 {
     [Table("TB_M_Question")]
-    public class Question
+    public class Question : BaseModel
     {
         [Key]
         public int Id { get; set; }
         public string QuestionDesc { get; set; }
-        public Training Training { get; set; }
+
+        [ForeignKey("Training")]
+        public int TrainingId { get; set; }
+
         public DateTimeOffset CreateData { get; set; }
         public DateTimeOffset UpdateDate { get; set; }
         public DateTimeOffset DeleteData { get; set; }
         public bool isDelete { get; set; }
+
+        public Training Training { get; set; }
     }
 }
