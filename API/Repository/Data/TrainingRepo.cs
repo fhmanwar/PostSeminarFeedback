@@ -41,7 +41,7 @@ namespace API.Repository.Data
         public override async Task<Training> GetID(int Id)
         {
             var data = await _context.Trainings.Include("User").Include("Type").SingleOrDefaultAsync(x => x.Id == Id && x.isDelete == false);
-            if (!data.Equals(0))
+            if (data != null)
             {
                 return data;
             }

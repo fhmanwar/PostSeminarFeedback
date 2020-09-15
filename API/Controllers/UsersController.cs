@@ -37,7 +37,7 @@ namespace API.Controllers
             _configuration = config;
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet]
         public async Task<List<UserVM>> GetAll()
         {
@@ -68,7 +68,7 @@ namespace API.Controllers
             return list;
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("{id}")]
         public UserVM GetID(string id)
         {
@@ -148,7 +148,7 @@ namespace API.Controllers
             return BadRequest("Not Successfully");
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut("{id}")]
         public IActionResult Update(string id, UserVM userVM)
         {
@@ -175,7 +175,7 @@ namespace API.Controllers
             return BadRequest("Not Successfully");
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {
