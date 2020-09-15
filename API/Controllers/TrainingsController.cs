@@ -66,4 +66,30 @@ namespace API.Controllers
             return data;
         }
     }
+
+    //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Route("api/[controller]")]
+    [ApiController]
+    public class QuestionsController : BaseController<Question, QuestionRepo>
+    {
+        readonly QuestionRepo _questRepo;
+        public QuestionsController(QuestionRepo questRepo) : base(questRepo)
+        {
+            _questRepo = questRepo;
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<int>> Update(int id, Question entity)
+        {
+            var getId = await _questRepo.GetID(id);
+            getId.QuestionDesc = entity.QuestionDesc;
+            getId.TrainingId = entity.TrainingId;
+            var data = await _questRepo.Update(getId);
+            if (data.Equals(null))
+            {
+                return BadRequest("Something Wrong! Please check again");
+            }
+            return data;
+        }
+    }
 }

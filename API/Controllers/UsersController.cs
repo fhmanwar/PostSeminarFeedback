@@ -200,12 +200,13 @@ namespace API.Controllers
     {
         readonly MyContext _context;
         public IConfiguration _configuration;
-        readonly UsersController usersController;
+        readonly UsersController _usersController;
 
-        public AuthsController(MyContext myContext, IConfiguration config)
+        public AuthsController(MyContext myContext, IConfiguration config, UsersController usersController)
         {
             _context = myContext;
             _configuration = config;
+            _usersController = usersController;
         }
 
         [HttpPost]
@@ -214,7 +215,7 @@ namespace API.Controllers
         {
             if (ModelState.IsValid)
             {
-                return usersController.Create(userVM);
+                return _usersController.Create(userVM);
             }
             return BadRequest("Data Not Valid");
         }

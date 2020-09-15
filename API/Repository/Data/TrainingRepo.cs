@@ -30,9 +30,8 @@ namespace API.Repository.Data
 
         public override async Task<List<Training>> GetAll()
         {
-            List<TrainingVM> list = new List<TrainingVM>();
             var data = await _context.Trainings.Include("User").Include("Type").Where(x => x.isDelete == false).ToListAsync();
-            if (data.Count == 0)
+            if (data.Count == 0 || data == null)
             {
                 return null;
             }
@@ -41,6 +40,36 @@ namespace API.Repository.Data
         public override async Task<Training> GetID(int Id)
         {
             var data = await _context.Trainings.Include("User").Include("Type").SingleOrDefaultAsync(x => x.Id == Id && x.isDelete == false);
+            if (data != null)
+            {
+                return data;
+            }
+            return null;
+        }
+    }
+
+    public class QuestionRepo : BaseRepo<Question, MyContext>
+    {
+        readonly MyContext _context;
+        IConfiguration _configuration;
+        public QuestionRepo(MyContext context, IConfiguration config) : base(context)
+        {
+            _context = context;
+            _configuration = config;
+        }
+
+        public override async Task<List<Question>> GetAll()
+        {
+            var data = await _context.Questions.Include("Training").Where(x => x.isDelete == false).ToListAsync();
+            if (data.Count == 0)
+            {
+                return null;
+            }
+            return data;
+        }
+        public override async Task<Question> GetID(int Id)
+        {
+            var data = await _context.Questions.Include("Training").SingleOrDefaultAsync(x => x.Id == Id && x.isDelete == false);
             if (data != null)
             {
                 return data;

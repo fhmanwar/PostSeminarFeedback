@@ -35,6 +35,7 @@ namespace API
             services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("myConn")));
             services.AddScoped<TypeTrainingRepo>();
             services.AddScoped<TrainingRepo>();
+            services.AddScoped<QuestionRepo>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
                 options.RequireHttpsMetadata = false;
