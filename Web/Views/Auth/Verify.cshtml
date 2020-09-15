@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "Verify";
+    Layout = "~/Views/Layout/_LayoutHandler.cshtml";
+}
+
+<div class="login">
+    <div class="wrapper wrapper-login">
+        <div class="container container-login animated fadeIn">
+            <h3 class="text-center">Verification Code</h3>
+            <div class="login-form">
+                <div class="form-group form-floating-label">
+                    <input type="text" id="Code" name="Code" class="form-control input-border-bottom" required>
+                    <label for="Code" class="placeholder">Your Code</label>
+                </div>
+                <div class="form-action mb-3">
+                    <button id="login" class="btn btn-primary btn-rounded btn-login" onclick="Verify();">Sign In</button>
+                </div>
+                <div class="login-account">
+                    <a href="#" class="link">Forget Password ?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/Scripts/AuthScript.js"></script>
+}
