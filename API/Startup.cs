@@ -36,6 +36,7 @@ namespace API
             services.AddScoped<TypeTrainingRepo>();
             services.AddScoped<TrainingRepo>();
             services.AddScoped<QuestionRepo>();
+            services.AddScoped<FeedbackRepo>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
                 options.RequireHttpsMetadata = false;
