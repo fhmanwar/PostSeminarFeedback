@@ -14,6 +14,10 @@ namespace API.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<TypeTraining> Types { get; set; }
+        public DbSet<Training> Trainings { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
