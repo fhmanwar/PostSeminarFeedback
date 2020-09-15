@@ -44,7 +44,8 @@ namespace Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseStatusCodePagesWithRedirects("/notfound");
+                //app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
 

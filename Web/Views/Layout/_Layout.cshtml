@@ -115,35 +115,9 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown hidden-caret">
-                            <a class="nav-link dropdown-toggle" href="#" role="button">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="Logout">
                                 <i class="fas fa-sign-out-alt"></i>
                             </a>
-                            @*<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
-                                <div class="avatar-sm">
-                                    <img src="~/images/default.png" alt="..." class="avatar-img rounded-circle">
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user animated fadeIn">
-                                <li>
-                                    <div class="user-box">
-                                        <div class="avatar-lg"><img src="~/images/default.png" alt="image profile" class="avatar-img rounded"></div>
-                                        <div class="u-text">
-                                            <h4>Hizrian</h4>
-                                            <p class="text-muted">hello@example.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">My Profile</a>
-                                    <a class="dropdown-item" href="#">My Balance</a>
-                                    <a class="dropdown-item" href="#">Inbox</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Account Setting</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Logout</a>
-                                </li>
-                            </ul>*@
                         </li>
 
                     </ul>
@@ -165,7 +139,7 @@
                         <div class="info">
                             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                                 <span>
-                                    Hizrian
+                                    Admin
                                     <span class="user-level">Administrator</span>
                                     <span class="caret"></span>
                                 </span>
@@ -174,28 +148,14 @@
 
                             <div class="collapse in" id="collapseExample">
                                 <ul class="nav">
-                                    <li>
-                                        <a href="#profile">
-                                            <span class="link-collapse">My Profile</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#edit">
-                                            <span class="link-collapse">Edit Profile</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#settings">
-                                            <span class="link-collapse">Settings</span>
-                                        </a>
-                                    </li>
+                                    <li><a href="#profile"><span class="link-collapse">Profile</span></a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <ul class="nav">
                         <li class="nav-item active">
-                            <a href="index.html">
+                            <a href="/">
                                 <i class="fas fa-home"></i>
                                 <p>Dashboard</p>
                                 <span class="badge badge-count">5</span>
@@ -210,117 +170,52 @@
                         <li class="nav-item">
                             <a data-toggle="collapse" href="#base">
                                 <i class="fas fa-layer-group"></i>
-                                <p>Base</p>
+                                <p>Training</p>
                                 <span class="caret"></span>
                             </a>
                             <div class="collapse" id="base">
                                 <ul class="nav nav-collapse">
-                                    <li>
-                                        <a href="components/avatars.html">
-                                            <span class="sub-item">Avatars</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="components/buttons.html">
-                                            <span class="sub-item">Buttons</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="components/gridsystem.html">
-                                            <span class="sub-item">Grid System</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="components/panels.html">
-                                            <span class="sub-item">Panels</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="components/notifications.html">
-                                            <span class="sub-item">Notifications</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="components/sweetalert.html">
-                                            <span class="sub-item">Sweet Alert</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="components/font-awesome-icons.html">
-                                            <span class="sub-item">Font Awesome Icons</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="components/flaticons.html">
-                                            <span class="sub-item">Flaticons</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="components/typography.html">
-                                            <span class="sub-item">Typography</span>
-                                        </a>
-                                    </li>
+                                    <li><a href="#"><span class="sub-item">Schedule</span></a></li>
+                                    <li><a href="#"><span class="sub-item">Type</span></a></li>
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a data-toggle="collapse" href="#forms">
-                                <i class="fas fa-pen-square"></i>
-                                <p>Forms</p>
-                                <span class="caret"></span>
-                            </a>
-                            <div class="collapse" id="forms">
-                                <ul class="nav nav-collapse">
-                                    <li>
-                                        <a href="forms/forms.html">
-                                            <span class="sub-item">Basic Form</span>
-                                        </a>
-                                    </li>
 
-                                </ul>
-                            </div>
-                        </li>
                         <li class="nav-item">
-                            <a data-toggle="collapse" href="#tables">
-                                <i class="fas fa-table"></i>
-                                <p>Tables</p>
+                            <a data-toggle="collapse" href="#feedback">
+                                <i class="far fa-comments"></i>
+                                <p>Feedback</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse" id="tables">
+                            <div class="collapse" id="feedback">
                                 <ul class="nav nav-collapse">
-                                    <li>
-                                        <a href="tables/tables.html">
-                                            <span class="sub-item">Basic Table</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="tables/datatables.html">
-                                            <span class="sub-item">Datatables</span>
-                                        </a>
-                                    </li>
+                                    <li><a href="#"><span class="sub-item">Question</span></a></li>
+                                    <li><a href="#"><span class="sub-item">Report</span></a></li>
                                 </ul>
                             </div>
-                        </li>
-                        @*far fa-chart-bar*@
-                        <li class="nav-item">
-                            <a href="widgets.html">
-                                <i class="fas fa-desktop"></i>
-                                <p>Widgets</p>
-                            </a>
                         </li>
 
                         <li class="nav-item">
                             <a data-toggle="collapse" href="#Account">
-                                <i class="fas fa-users"></i>
+                                <i class="fas fa-users-cog"></i>
                                 <p>Account</p>
                                 <span class="caret"></span>
                             </a>
                             <div class="collapse" id="Account">
                                 <ul class="nav nav-collapse">
-                                    <li><a href="tables/tables.html"><span class="sub-item">All User</span></a></li>
-                                    <li><a href="tables/datatables.html"><span class="sub-item">Employee</span></a></li>
+                                    <li><a href="#"><span class="sub-item">All User</span></a></li>
+                                    <li><a href="#"><span class="sub-item">Employee</span></a></li>
+                                    <li><a href="#"><span class="sub-item">Trainer</span></a></li>
+                                    <li><a href="#"><span class="sub-item">Role</span></a></li>
                                 </ul>
                             </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="widgets.html">
+                                <i class="fas fa-desktop"></i>
+                                <p>Widgets</p>
+                            </a>
                         </li>
 
                     </ul>
