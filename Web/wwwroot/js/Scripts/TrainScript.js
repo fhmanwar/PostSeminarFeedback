@@ -1,4 +1,5 @@
 ﻿var table = null;
+var arrData = [];
 
 $(document).ready(function () {
     table = $('#train').DataTable({
@@ -57,6 +58,47 @@ function ClearScreen() {
     $('#add').show();
 }
 
+function LoadData(element) {
+    //debugger;
+    if (arrData.length === 0) {
+        if (element[0].name == 'TypeOption') {
+            $.ajax({
+                type: "Get",
+                url: "/typetrain/LoadType",
+                success: function (data) {
+                    arrData = data;
+                    renderData(element);
+                }
+            });
+        } else if (element[0].name == 'UserOption') {
+            $.ajax({
+                type: "Get",
+                url: "/user/LoadData",
+                success: function (data) {
+                    arrData = data;
+                    renderData(element);
+                }
+            });
+        }
+    }
+    else {
+        renderData(element);
+    }
+}
+
+function renderData(element) {
+    //debugger;
+    var $option = $(element);
+    $option.empty();
+    $option.append($('<option/>').val('0').text('-- Select --').hide());
+    $.each(arrData, function (i, val) {
+        $option.append($('<option/>').val(val.id).text(val.name))
+    });
+}
+
+LoadData($('#TypeOption'))
+LoadData($('#UserOption'))
+
 function GetById(id) {
     //debugger;
     $.ajax({
@@ -65,7 +107,19 @@ function GetById(id) {
     }).then((result) => {
         //debugger;
         $('#Id').val(result.id);
-        $('#Type').val(result.name);
+        $('#Title').val(result.title);
+
+        var date = new Date(result.schedule);
+        //var dateStart = date.getFullYear() + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' + ("0" + date.getDate()).slice(-2);
+        //console.log(dateStart);
+        //console.log(moment(date).format('YYYY-MM-DD'));
+        //console.log(moment(date).format('HH:mm'));
+        $('#ScheduleDate').val(moment(date).format('YYYY-MM-DD'));
+        $('#ScheduleTime').val(moment(date).format('HH:mm'));
+        $('#Location').val(result.location);
+        $('#Target').val(result.target);
+        $('#UserOption').val(result.employee.empId);
+        $('#TypeOption').val(result.type.id);
         $('#add').hide();
         $('#update').show();
         $('#myModal').modal('show');
@@ -74,15 +128,20 @@ function GetById(id) {
 
 function Save() {
     //debugger;
-    var Type = new Object();
-    Type.Id = 0;
-    Type.Name = $('#Type').val();
+    var Data = new Object();
+    Data.Id = 0;
+    Data.title = $('#Title').val();
+    Data.schedule = $('#ScheduleDate').val() + 'T' + $('#ScheduleTime').val();
+    Data.location = $('#Location').val();
+    Data.target = $('#Target').val();
+    Data.userId = $('#UserOption').val();
+    Data.typeId = $('#TypeOption').val();
     $.ajax({
         type: 'POST',
         url: "/training/InsertOrUpdate/",
         cache: false,
         dataType: "JSON",
-        data: Type
+        data: Data
     }).then((result) => {
         //debugger;
         if (result.statusCode == 200) {
@@ -103,15 +162,20 @@ function Save() {
 
 function Update() {
     //debugger;
-    var Type = new Object();
-    Type.Id = $('#Id').val();
-    Type.Name = $('#Type').val();
+    var Data = new Object();
+    Data.Id = $('#Id').val();
+    Data.title = $('#Title').val();
+    Data.schedule = $('#ScheduleDate').val() + 'T' + $('#ScheduleTime').val();
+    Data.location = $('#Location').val();
+    Data.target = $('#Target').val();
+    Data.userId = $('#UserOption').val();
+    Data.typeId = $('#TypeOption').val();
     $.ajax({
         type: 'POST',
         url: "/training/InsertOrUpdate/",
         cache: false,
         dataType: "JSON",
-        data: Type
+        data: Data
     }).then((result) => {
         //debugger;
         if (result.statusCode == 200) {

@@ -37,7 +37,7 @@ namespace API.Controllers
             _configuration = config;
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet]
         public async Task<List<UserVM>> GetAll()
         {
