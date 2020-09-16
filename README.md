@@ -2,20 +2,20 @@
 
 ## [Table of Contents](#)
 
-- [Progress](#installation)
+- [Progress](#progress)
 - [SDLC](#sdlc)
     - [ERD Scheme](#ERD-Scheme)
     - [Use Case Diagram Scheme](#use-case-diagram-Scheme)
     - [BPMN Scheme](#bpmn-Scheme)
 
-## SDLC
+## Progress
 
 - Senin (14/09):
 
     1. Membuat UseCase
 
     2. Membuat ERD
-    
+
     3. Membuat BPMN
 
 - Selasa (15/09):
