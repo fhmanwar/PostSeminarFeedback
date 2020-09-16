@@ -2,11 +2,32 @@
 
 ## [Table of Contents](#)
 
+- [Progress](#installation)
 - [SDLC](#sdlc)
     - [ERD Scheme](#ERD-Scheme)
     - [Use Case Diagram Scheme](#use-case-diagram-Scheme)
     - [BPMN Scheme](#bpmn-Scheme)
-- [Installation](#installation)
+
+## SDLC
+
+- Senin (14/09):
+
+    1. Membuat UseCase
+
+    2. Membuat ERD
+    
+    3. Membuat BPMN
+
+- Selasa (15/09):
+Membuat Register, Login, dan Verify
+Revisi UseCase, ERD, & BPMN
+Revisi entity, bases, repo
+Kesulitan Memakai GitDesktop => salah mengoperasikan membuat codingan hilang :(
+Department, Division API
+Rabu(16/09):
+Membuat Register, Login, Verify.(API Revisi)
+
+
 
 ## SDLC
 
