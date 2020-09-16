@@ -18,7 +18,7 @@ namespace API.Models
         public string Location { get; set; }
         public DateTimeOffset Schedule { get; set; }
 
-        [ForeignKey("User")]
+        [ForeignKey("Employee")]
         public string UserId { get; set; }
         [ForeignKey("Type")]
         public int TypeId { get; set; }
@@ -28,7 +28,7 @@ namespace API.Models
         public DateTimeOffset DeleteData { get; set; }
         public bool isDelete { get; set; }
 
-        public User User { get; set; }
+        public Employee Employee { get; set; }
         public TypeTraining Type { get; set; }
 
     }

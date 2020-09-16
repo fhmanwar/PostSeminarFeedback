@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewData["Title"] = "TypeTraining";
+    Layout = "~/Views/Layout/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex flex-row align-content-between justify-content-between">
+                    <h4 class="card-title">Add Row</h4>
+                    <div data-toggle="modal" data-target="#myModal" onclick="ClearScreen();">
+                        <button class="btn btn-secondary btn-border btn-round" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header no-bd">
+                                <h5 class="modal-title"><span class="fw-mediumbold">Form Data</span></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <input type="text" id="Id" name="Id" class="form-control" hidden>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group form-group-default">
+                                                <label>Type</label>
+                                                <input type="text" id="Type" name="Type" class="form-control" placeholder="fill Type">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer no-bd">
+                                <button type="button" id="add" class="btn btn-success btn-border btn-round" data-dismiss="modal" onclick="Save();">Insert</button>
+                                <button type="button" id="update" class="btn btn-warning btn-border btn-round" data-dismiss="modal" onclick="Update();">Update</button>
+                                <button type="button" class="btn btn-danger btn-border btn-round" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="typeTrain" class="display table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Type</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script src="~/js/Scripts/TypeTrainScript.js"></script>
+}
