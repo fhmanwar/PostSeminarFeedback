@@ -10,23 +10,20 @@
 
 ## Progress
 
-- Senin (14/09):
+- `Senin` 14/09:
+    1. Create UseCase
+    2. Create ERD
+    3. Create BPMN
+    4. Create a model table in context for the database
 
-    1. Membuat UseCase
-
-    2. Membuat ERD
-
-    3. Membuat BPMN
-
-- Selasa (15/09):
-Membuat Register, Login, dan Verify
-Revisi UseCase, ERD, & BPMN
-Revisi entity, bases, repo
-Kesulitan Memakai GitDesktop => salah mengoperasikan membuat codingan hilang :(
-Department, Division API
-Rabu(16/09):
-Membuat Register, Login, Verify.(API Revisi)
-
+- `Selasa` 15/09:
+    1. Revision UseCase, ERD, & BPMN
+    2. Create Register, Login, Verify, and CRUD User in API
+    3. Create Module Feedback, Question, Type, Training in API
+    
+- `Rabu` 16/09:
+    1. Create Register, Login, Verify, and CRUD User in Client
+    2. Create Module Feedback, Question, Type, Training in Client
 
 
 ## SDLC
