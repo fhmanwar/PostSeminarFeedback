@@ -218,7 +218,7 @@ namespace Web.Controllers
             //    return View("~/Views/Dashboard/Department.cshtml");
             //}
             //return Redirect("/notfound");
-            return View("~/Views/Feedback/Training.cshtml");
+            return View("~/Views/Feedback/Question.cshtml");
         }
 
         public IActionResult LoadData()

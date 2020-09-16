@@ -60,7 +60,7 @@ namespace API.Repository.Data
 
         public override async Task<List<Question>> GetAll()
         {
-            var data = await _context.Questions.Include("Training").Where(x => x.isDelete == false).ToListAsync();
+            var data = await _context.Questions.Include("Training").Include(x => x.Training.Employee).Where(x => x.isDelete == false).ToListAsync();
             if (data.Count == 0)
             {
                 return null;
@@ -69,7 +69,7 @@ namespace API.Repository.Data
         }
         public override async Task<Question> GetID(int Id)
         {
-            var data = await _context.Questions.Include("Training").SingleOrDefaultAsync(x => x.Id == Id && x.isDelete == false);
+            var data = await _context.Questions.Include("Training").Include(x => x.Training.Employee).SingleOrDefaultAsync(x => x.Id == Id && x.isDelete == false);
             if (data != null)
             {
                 return data;
