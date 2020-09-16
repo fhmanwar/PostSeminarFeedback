@@ -16,7 +16,7 @@ namespace API.Models
         public string Review { get; set; }
         public float Rate { get; set; }
 
-        [ForeignKey("User")]
+        [ForeignKey("Employee")]
         public string UserId { get; set; }
 
         [ForeignKey("Question")]
@@ -27,7 +27,7 @@ namespace API.Models
         public DateTimeOffset DeleteData { get; set; }
         public bool isDelete { get; set; }
 
-        public User User { get; set; }
+        public Employee Employee { get; set; }
         public Question Question { get; set; }
 
     }

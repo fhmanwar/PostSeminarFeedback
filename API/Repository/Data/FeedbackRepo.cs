@@ -90,7 +90,7 @@ namespace API.Repository.Data
 
         public override async Task<List<Feedback>> GetAll()
         {
-            var data = await _context.Feedbacks.Include("Question").Include("User").Where(x => x.isDelete == false).ToListAsync();
+            var data = await _context.Feedbacks.Include("Question").Include(x => x.Question.Training.Employee).Include("Employee").Where(x => x.isDelete == false).ToListAsync();
             if (data.Count == 0)
             {
                 return null;
@@ -99,7 +99,7 @@ namespace API.Repository.Data
         }
         public override async Task<Feedback> GetID(int Id)
         {
-            var data = await _context.Feedbacks.Include("Question").Include("User").SingleOrDefaultAsync(x => x.Id == Id && x.isDelete == false);
+            var data = await _context.Feedbacks.Include("Question").Include(x => x.Question.Training.Employee).Include("Employee").SingleOrDefaultAsync(x => x.Id == Id && x.isDelete == false);
             if (data != null)
             {
                 return data;

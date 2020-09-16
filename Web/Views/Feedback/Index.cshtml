@@ -4,5 +4,115 @@
     Layout = "~/Views/Layout/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex flex-row align-content-between justify-content-between">
+                    <h4 class="card-title">Add Row</h4>
+                    <div data-toggle="modal" data-target="#myModal" onclick="ClearScreen();">
+                        <button class="btn btn-secondary btn-border btn-round" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header no-bd">
+                                <h5 class="modal-title"><span class="fw-mediumbold">Form Data</span></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="row">
+                                        <input type="text" id="Id" name="Id" class="form-control" hidden>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default">
+                                                <label>Employee</label>
+                                                <select class="form-control" id="UserOption" name="UserOption"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default" id="trainerCek">
+                                                <label>Trainer</label>
+                                                <select class="form-control" id="TrainOption" name="TrainOption" readonly></select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default">
+                                                <label>Title</label>
+                                                <input type="text" id="Title" name="Title" class="form-control" placeholder="fill Title">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default" id="trainerCek">
+                                                <label>Question</label>
+                                                <select class="form-control" id="QuestOption" name="QuestOption"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default">
+                                                <label>Review</label>
+                                                <input type="text" id="Review" name="Review" class="form-control" placeholder="fill Review">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default">
+                                                <label>Rate</label>
+                                                <input type="text" id="Rate" name="Rate" class="form-control" placeholder="fill Rate">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer no-bd">
+                                <button type="button" id="add" class="btn btn-success btn-border btn-round" data-dismiss="modal" onclick="Save();">Insert</button>
+                                <button type="button" id="update" class="btn btn-warning btn-border btn-round" data-dismiss="modal" onclick="Update();">Update</button>
+                                <button type="button" class="btn btn-danger btn-border btn-round" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="report" class="display table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Employee</th>
+                                <th>Trainer</th>
+                                <th>Title</th>
+                                <th>Question</th>
+                                <th>Feedback</th>
+                                <th>Rate</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/Scripts/FeedbackScript.js"></script>
+}
+
 
