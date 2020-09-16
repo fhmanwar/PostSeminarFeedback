@@ -10,18 +10,18 @@
 
 ## Progress
 
-- Senin (14/09):
+- `Senin` 14/09:
     1. Create UseCase
     2. Create ERD
     3. Create BPMN
     4. Create a model table in context for the database
 
-- Selasa (15/09):
+- `Selasa` 15/09:
     1. Revision UseCase, ERD, & BPMN
     2. Create Register, Login, Verify, and CRUD User in API
     3. Create Module Feedback, Question, Type, Training in API
     
-- Rabu(16/09):
+- `Rabu` 16/09:
     1. Create Register, Login, Verify, and CRUD User in Client
     2. Create Module Feedback, Question, Type, Training in Client
 
