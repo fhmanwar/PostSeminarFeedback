@@ -200,19 +200,18 @@ namespace API.Controllers
     {
         readonly MyContext _context;
         public IConfiguration _configuration;
-        readonly UsersController _usersController;
 
-        public AuthsController(MyContext myContext, IConfiguration config, UsersController usersController)
+        public AuthsController(MyContext myContext, IConfiguration config)
         {
             _context = myContext;
             _configuration = config;
-            _usersController = usersController;
         }
 
         [HttpPost]
         [Route("Register")]
         public IActionResult Register(UserVM userVM)
         {
+            UsersController _usersController = new UsersController(_context, _configuration);
             if (ModelState.IsValid)
             {
                 return _usersController.Create(userVM);
