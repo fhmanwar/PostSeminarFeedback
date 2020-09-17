@@ -61,7 +61,7 @@ function LoadData(element) {
         if (element[0].name == 'TrainOption') {
             $.ajax({
                 type: "Get",
-                url: "/user/LoadData",
+                url: "/account/LoadData",
                 success: function (data) {
                     arrData = data;
                     renderData(element);
@@ -70,7 +70,7 @@ function LoadData(element) {
         } else if (element[0].name == 'UserOption') {
             $.ajax({
                 type: "Get",
-                url: "/user/LoadData",
+                url: "/account/LoadData",
                 success: function (data) {
                     arrData = data;
                     renderData(element);

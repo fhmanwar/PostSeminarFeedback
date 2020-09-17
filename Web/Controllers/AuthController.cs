@@ -91,7 +91,6 @@ namespace Web.Controllers
                             HttpContext.Session.SetString("name", account.Name);
                             HttpContext.Session.SetString("email", account.Email);
                             HttpContext.Session.SetString("lvl", account.RoleName);
-                            HttpContext.Session.SetString("code", account.VerifyCode);
                             if (account.RoleName == "Admin")
                             {
                                 return Json(new { status = true, msg = "Login Successfully !" });

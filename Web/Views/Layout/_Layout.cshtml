@@ -5,12 +5,10 @@
     var name = Context.Session.GetString("uname");
     var mail = Context.Session.GetString("email");
     var level = Context.Session.GetString("lvl");
-    var code = Context.Session.GetString("code");
     var color = "";
-    if (name == null && level == null && code != null)
+    if (level == null && name == null)
     {
         Context.Response.Redirect("/login");
-
     }
 }
 
@@ -210,19 +208,10 @@
                             </li>
 
                             <li class="nav-item">
-                                <a data-toggle="collapse" href="#Account">
+                                <a href="/account">
                                     <i class="fas fa-users-cog"></i>
-                                    <p>Account</p>
-                                    <span class="caret"></span>
+                                    <p>User & Role</p>
                                 </a>
-                                <div class="collapse" id="Account">
-                                    <ul class="nav nav-collapse">
-                                        <li><a href="#"><span class="sub-item">All User</span></a></li>
-                                        <li><a href="#"><span class="sub-item">Employee</span></a></li>
-                                        <li><a href="#"><span class="sub-item">Trainer</span></a></li>
-                                        <li><a href="#"><span class="sub-item">Role</span></a></li>
-                                    </ul>
-                                </div>
                             </li>
                         }
                         else if (level == "Trainer")
