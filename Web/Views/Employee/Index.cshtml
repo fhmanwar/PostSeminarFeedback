@@ -4,6 +4,11 @@
     Layout = "~/Views/Layout/_Layout.cshtml";
 }
 
+@section Style{
+    <link href="~/css/star-rating-svg.css" rel="stylesheet" />
+    <link href="~/css/Style.css" rel="stylesheet" />
+}
+
 @section pageHeader{
     <ul class="breadcrumbs">
         <li class="nav-home"><a href="/"><i class="flaticon-home"></i></a></li>
@@ -47,25 +52,40 @@
                     </div>
                 </div>
 
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <div class="form-group form-group-default">
-                            <label>Address</label>
-                            <input type="text" class="form-control" value="st Merdeka Putih, Jakarta Indonesia" name="address" placeholder="Address">
-                        </div>
-                    </div>
-                </div>
                 <div class="row mt-3 mb-1">
                     <div class="col-md-12">
-                        <div class="form-group form-group-default">
-                            <label>About Me</label>
-                            <textarea class="form-control" name="about" placeholder="About Me" rows="3">A man who hates loneliness</textarea>
+                        <div id="dataQuest"></div>
+                        <!--<div class="form-group">
+                            <p class="form-control-static" id="QuestionP"></p>
                         </div>
+                        <div class="row flex-row justify-content-center">-->
+                            <!-- Rating Stars Box -->
+                            <!--<div class='rating-stars text-center'>
+                                <ul id='stars'>
+                                    <li class='star' title='Poor' data-value='1'>
+                                        <i class='fa fa-star fa-fw'></i>
+                                    </li>
+                                    <li class='star' title='Fair' data-value='2'>
+                                        <i class='fa fa-star fa-fw'></i>
+                                    </li>
+                                    <li class='star' title='Good' data-value='3'>
+                                        <i class='fa fa-star fa-fw'></i>
+                                    </li>
+                                    <li class='star' title='Excellent' data-value='4'>
+                                        <i class='fa fa-star fa-fw'></i>
+                                    </li>
+                                    <li class='star' title='WOW!!!' data-value='5'>
+                                        <i class='fa fa-star fa-fw'></i>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>-->
+
                     </div>
                 </div>
+
                 <div class="text-right mt-3 mb-3">
-                    <button type="button" id="add" class="btn btn-success btn-border btn-round" onclick="Save();">Save</button>
-                    <button type="button" id="update" class="btn btn-warning btn-border btn-round" onclick="Update();">Update</button>
+                    <button type="button" id="add" class="btn btn-info btn-border btn-round" onclick="Save();">Save</button>
                     <button type="reset" class="btn btn-secondary btn-border btn-round" onclick="ClearScreen();">Reset</button>
                 </div>
             </div>
@@ -74,6 +94,123 @@
 </div>
 
 
+
+
+@*<div class="row flex-row justify-content-center">
+        <div class="col-md-10">
+            <div id="myQuest" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's content.
+                                    </p>
+                                    <p class="form-control-static" id="QuestionP">cek</p>
+                                    <div class="row flex-row justify-content-center">
+                                        <div class="rating" id="starss">
+                                            <input type="radio" id="star5" name="rating" value="5"/>
+                                            <label id="star5" for="star5" title="Awesome - 5 stars"></label>
+
+                                            <input type="radio" id="4half" name="rating" value="4.5" />
+                                            <label class="half" for="4half" title="Awesome - 4.5 stars"></label>
+
+                                            <input type="radio" id="star4" name="rating" value="4"/>
+                                            <label id="star4" for="star4" title="Pretty good - 4 stars"></label>
+
+                                            <input type="radio" id="3half" name="rating" value="3.5"  />
+                                            <label class="half" for="3half" title="Pretty good - 3.5 stars"></label>
+
+                                            <input type="radio" id="star3" name="rating" value="3" />
+                                            <label id="star3" for="star3" title="Better - 3 stars"></label>
+
+                                            <input type="radio" id="2half" name="rating" value="2.5" />
+                                            <label class="half" for="2half" title="Better - 2.5 stars"></label>
+
+                                            <input type="radio" id="star2" name="rating" value="2" />
+                                            <label id="star2" for="star2" title="Kinda bad - 2 stars"></label>
+
+                                            <input type="radio" id="1half" name="rating" value="1.5"  />
+                                            <label class="half" for="1half" title="Kinda bad - 1.5 stars"></label>
+
+                                            <input type="radio" id="star1" name="rating" value="1" />
+                                            <label id="star1" for="star1" title="Sucks big time - 1 star"></label>
+
+                                            <input type="radio" id="half" name="rating" value="0.5"  />
+                                            <label class="half" for="half" title="Sucks big time - 0.5 stars"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title font-weight-bold">Card title</h4>
+                                    <p class="card-text">
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's content.
+                                    </p>
+                                    <p class="form-control-static" id="QuestionP">cek</p>
+                                    <div class="row flex-row justify-content-center">
+                                        <div class="rating" id="starss">
+                                            <input type="radio" id="star5" name="rating" value="5" />
+                                            <label id="star5" for="star5" title="Awesome - 5 stars"></label>
+
+                                            <input type="radio" id="4half" name="rating" value="4.5" />
+                                            <label class="half" for="4half" title="Awesome - 4.5 stars"></label>
+
+                                            <input type="radio" id="star4" name="rating" value="4" />
+                                            <label id="star4" for="star4" title="Pretty good - 4 stars"></label>
+
+                                            <input type="radio" id="3half" name="rating" value="3.5" />
+                                            <label class="half" for="3half" title="Pretty good - 3.5 stars"></label>
+
+                                            <input type="radio" id="star3" name="rating" value="3" />
+                                            <label id="star3" for="star3" title="Better - 3 stars"></label>
+
+                                            <input type="radio" id="2half" name="rating" value="2.5" />
+                                            <label class="half" for="2half" title="Better - 2.5 stars"></label>
+
+                                            <input type="radio" id="star2" name="rating" value="2" />
+                                            <label id="star2" for="star2" title="Kinda bad - 2 stars"></label>
+
+                                            <input type="radio" id="1half" name="rating" value="1.5" />
+                                            <label class="half" for="1half" title="Kinda bad - 1.5 stars"></label>
+
+                                            <input type="radio" id="star1" name="rating" value="1" />
+                                            <label id="star1" for="star1" title="Sucks big time - 1 star"></label>
+
+                                            <input type="radio" id="half" name="rating" value="0.5" />
+                                            <label class="half" for="half" title="Sucks big time - 0.5 stars"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row flex-row justify-content-center">
+        <div class="col-md-10 text-center">
+            <a class="btn btn-info btn-border btn-round nextQuest" href="#myQuest" data-slide="next" onclick="rate();">
+                Next <i class="fas fa-chevron-right"></i>
+            </a>
+            <a class="btn btn-success btn-border btn-round finishQuest" href="#myQuest" data-slide="next">
+                Finish <i class="fas fa-check"></i>
+            </a>
+        </div>
+    </div>*@
+
 @section Scripts{
     <script src="~/js/Scripts/EmployeeScript.js"></script>
+    <script src="~/js/jquery.star-rating-svg.js"></script>
 }

@@ -1,7 +1,11 @@
 ﻿var table = null;
 var arrData = [];
+var arrQuest = [];
+var arrCreate = [];
 
 $(document).ready(function () {
+    //debugger;
+
     ClearScreen();
     $('#TrainerOption').on('change', function () {
         //debugger;
@@ -34,21 +38,54 @@ $(document).ready(function () {
                     var date = new Date(dataTrain.schedule);
                     console.log(moment(date).format('YYYY-MM-DD'));
                     $('#ScheduleDate').val(moment(date).format('YYYY-MM-DD'));
+
+                    $('#QuestionP').show();
+                    $('.myRate').show();
+                    $.ajax({
+                        url: "/Employee/LoadtrainerQuest/",
+                        type: "Get",
+                        data: { id: getid },
+                        success: function (dataQuest) {
+                            //debugger;
+                            arrQuest = dataQuest;
+                            $.each(dataQuest, function (i, val) {
+                                //debugger;
+                                console.log(i + 1);
+                                console.log(val.questionDesc);
+                                $('#dataQuest').append('<div class="form-group"><p class="form-control-static">' + parseInt(i + 1) + '. ' + val.questionDesc + '</p></div><div class= "row flex-row justify-content-center" ><div class="myRate"></div></div>');
+                                $(".myRate").starRating({
+                                    totalStars: 5,
+                                    starShape: 'rounded',
+                                    starSize: 40,
+                                    emptyColor: 'lightgray',
+                                    hoverColor: 'salmon',
+                                    activeColor: 'crimson',
+                                    useGradient: false,
+                                    callback: function (currentRating, $el) {
+                                        // make a server call here
+                                        //console.log(currentRating);
+                                        $('#dataQuest').append('<input type="text" id="getRate-' + parseInt(i + 1) +'" value="'+currentRating+'" class="form-control" hidden>');
+                                    }
+                                });
+                            });
+                        }
+                    });
                 }
             });
+
         });
-        
+
     });
-    
+    //Stars();
 });
 
 function ClearScreen() {
     $('#Id').val('');
-    $('#Question').val('');
     $('#TrainerOption').val('0');
     $('#cekTitle').hide();
     $('#cekschedule').hide();
-    $('#update').hide();
+    $('.myRate').hide();
+
     $('#add').show();
 }
 
@@ -87,60 +124,92 @@ function renderData(element) {
 
 LoadData($('#TrainerOption'))
 
+function Save() {
+    //debugger;
+    var count = arrQuest.length;
+    console.log(count);
+    $.each(arrQuest, function (i, data) {
+        //debugger;
+        //console.log(data);
+        var Data = new Object();
+        //Data.review = $('#Review').val();
+        Data.rate = $('#getRate-' + parseInt(i + 1)).val();
+        Data.questionId = data.questionId;
+        //console.log(Data);
+        //arrCreate.push(Data);
+        //console.log(arrCreate);
+        $.ajax({
+            type: 'POST',
+            url: "/employee/Insert/",
+            cache: false,
+            dataType: "JSON",
+            data: Data
+        }).then((result) => {
+            //debugger;
+            if (result.statusCode == 200) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Data inserted Successfully',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+                window.setTimeout(function () {
+                    location.reload();
+                }, 1500);
+            } else {
+                Swal.fire('Error', 'Failed to Input', 'error');
+                ClearScreen();
+            }
+        });
+    })
+}
+
+function Stars() {
+    /* 1. Visualizing things on Hover - See next part for action on click */
+    $('#stars li').on('mouseover', function () {
+        var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+        // Now highlight all the stars that's not after the current hovered star
+        $(this).parent().children('li.star').each(function (e) {
+            if (e < onStar) {
+                $(this).addClass('hover');
+            }
+            else {
+                $(this).removeClass('hover');
+            }
+        });
+
+    }).on('mouseout', function () {
+        $(this).parent().children('li.star').each(function (e) {
+            $(this).removeClass('hover');
+        });
+    });
+
+
+    /* 2. Action to perform on click */
+    $('#stars li').on('click', function () {
+        var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+        var stars = $(this).parent().children('li.star');
+
+        for (i = 0; i < stars.length; i++) {
+            $(stars[i]).removeClass('selected');
+        }
+
+        for (i = 0; i < onStar; i++) {
+            $(stars[i]).addClass('selected');
+        }
+
+        // JUST RESPONSE (Not needed)
+        var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+    });
+}
+
 function rate() {
-    var rating = document.querySelector('input[name="rating"]:checked').value;
-    var star05 = document.querySelector('label[id="starhalf"]').title;
-    var star1 = document.querySelector('label[id="star1"]').title;
-    var star15 = document.querySelector('label[id="star1half"]').title;
-    var star2 = document.querySelector('label[id="star2"]').title;
-    var star25 = document.querySelector('label[id="star2half"]').title;
-    var star3 = document.querySelector('label[id="star3"]').title;
-    var star35 = document.querySelector('label[id="star3half"]').title;
-    var star4 = document.querySelector('label[id="star4"]').title;
-    var star45 = document.querySelector('label[id="star4half"]').title;
-    var star5 = document.querySelector('label[id="star5"]').title;
-
-    if (rating == 0.5) {
-        console.log(star05);
-        console.log(rating);
-        alert("Success Your Rate = " + star05);
-    } else if (rating == 1) {
-        console.log(star1);
-        console.log(rating);
-        alert("Success Your Rate = " + star1);
-    } else if (rating == 1.5) {
-        console.log(star15);
-        console.log(rating);
-        alert("Success Your Rate = " + star15);
-    } else if (rating == 2) {
-        console.log(star2);
-        console.log(rating);
-        alert("Success Your Rate = " + star2);
-    } else if (rating == 2.5) {
-        console.log(star25);
-        console.log(rating);
-        alert("Success Your Rate = " + star25);
-    } else if (rating == 3) {
-        console.log(star3);
-        console.log(rating);
-        alert("Success Your Rate = " + star3);
-    } else if (rating == 3.5) {
-        console.log(star35);
-        console.log(rating);
-        alert("Success Your Rate = " + star35);
-    } else if (rating == 4) {
-        console.log(star4);
-        console.log(rating);
-        alert("Success Your Rate = " + star4);
-    } else if (rating == 4.5) {
-        console.log(star45);
-        console.log(rating);
-        alert("Success Your Rate = " + star45);
-    } else if (rating == 5) {
-        console.log(star5);
-        console.log(rating);
-        alert("Success Your Rate = " + star5);
-    }
-
-
+    //debugger;
+    //var rate = $(".getRate").attr('name');
+    var getRate = $("input[name=rating]:checked").val();
+    console.log(getRate);
+    //location.reload();
+    var getRate = $("input[name=rating]:checked").prop('checked', false);
 }

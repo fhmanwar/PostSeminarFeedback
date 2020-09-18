@@ -34,8 +34,9 @@
     <!-- CSS Files -->
     <link href="~/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/azzara.min.css" rel="stylesheet" />
+    @RenderSection("Style", required: false)
 </head>
-<body>
+<body data-background-color="bg2">
     <div class="wrapper">
         <!--
                 Tip 1: You can change the background color of the main header using: data-background-color="blue | purple | light-blue | green | orange | red"
