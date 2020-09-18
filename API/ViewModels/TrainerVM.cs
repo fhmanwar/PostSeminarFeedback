@@ -26,6 +26,6 @@ namespace API.ViewModels
         public int QuestionId { get; set; }
         public string QuestionDesc { get; set; }
         public string Review { get; set; }
-        public float Rate { get; set; }
+        public double Rate { get; set; }
     }
 }

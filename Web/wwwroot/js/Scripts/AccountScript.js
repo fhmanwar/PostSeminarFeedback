@@ -82,10 +82,16 @@ $(document).ready(function () {
                     return row.name + '<br />Email: ' + row.email 
                 }
             },
-            { "data": "site" },
+            {
+                "sortable": false,
+                "data": "site"
+            },
             { "data": "phone" },
             { "data": "address" },
-            { "data": "roleName" },
+            {
+                "sortable": false,
+                "data": "roleName"
+            },
             {
                 "sortable": false,
                 "render": function (data, type, row, meta) {
@@ -99,6 +105,44 @@ $(document).ready(function () {
                 }
             }
         ],
+        initComplete: function () {
+            this.api().columns(6).every(function () {
+                var column = this;
+                var select = $('<select class="form-control"><option value="">ALL</option></select>')
+                    .appendTo($(column.header()).empty())
+                    .on('change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
+            this.api().columns(3).every(function () {
+                var column = this;
+                var select = $('<select class="form-control"><option value="">ALL</option></select>')
+                    .appendTo($(column.header()).empty())
+                    .on('change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
+        }
     });
 
     ClearScreen();

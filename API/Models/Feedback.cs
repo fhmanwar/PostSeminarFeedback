@@ -14,7 +14,7 @@ namespace API.Models
         [Key]
         public int Id { get; set; }
         public string Review { get; set; }
-        public float Rate { get; set; }
+        public double Rate { get; set; }
 
         [ForeignKey("Employee")]
         public string UserId { get; set; }

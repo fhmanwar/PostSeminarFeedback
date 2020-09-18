@@ -43,31 +43,5 @@ namespace API.Controllers
             }
             return list;
         }
-
-        //[HttpGet("trainer/{id}")]
-        //public async Task<List<TrainerVM>> GetTrainer(string id)
-        //{
-        //    var getId = await _context.Trainings
-        //                    .Include(x => x.Employee)
-        //                    .Where(x => x.Employee.EmpId == id)
-        //                    .ToListAsync();
-        //    if (getId.Count == 0)
-        //    {
-        //        return null;
-        //    }
-        //    List<TrainerVM> list = new List<TrainerVM>();
-        //    foreach (var item in getId)
-        //    {
-        //        var trainer = new TrainerVM()
-        //        {
-        //            EmpId = item.Employee.EmpId,
-        //            EmployeeName = item.Employee.Name,
-        //            TrainingId = item.Id,
-        //            TrainingTitle = item.Title,
-        //        };
-        //        list.Add(trainer);
-        //    }
-        //    return list;
-        //}
     }
 }

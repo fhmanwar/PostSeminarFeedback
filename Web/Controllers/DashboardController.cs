@@ -92,7 +92,29 @@ namespace Web.Controllers
                 throw ex;
             }
         }
+        
+        public IActionResult LoadTop()
+        {
+            IEnumerable<TopTrainingVM> top = null;
+            //var token = HttpContext.Session.GetString("token");
+            //client.DefaultRequestHeaders.Add("Authorization", token);
+            var resTask = client.GetAsync("TopTrainers/top");
+            resTask.Wait();
 
+            var result = resTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<List<TopTrainingVM>>();
+                readTask.Wait();
+                top = readTask.Result;
+            }
+            else
+            {
+                top = Enumerable.Empty<TopTrainingVM>();
+                ModelState.AddModelError(string.Empty, "Server Error try after sometimes.");
+            }
+            return Json(top);
+        }
 
         public IActionResult LoadPie()
         {

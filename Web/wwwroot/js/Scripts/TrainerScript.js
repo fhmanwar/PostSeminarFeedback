@@ -17,15 +17,12 @@ $(document).ready(function () {
             {
                 "data": "id",
                 render: function (data, type, row, meta) {
-                    //console.log(row);
                     return meta.row + meta.settings._iDisplayStart + 1;
-                    //return meta.row + 1;
                 }
             },
             {
-                'render': function (data, type, row) {
-                    return row.trainingTitle
-                }
+                "sortable": false,
+                "data": "trainingTitle",
             },
             { "data": "questionDesc" },
             {
@@ -37,6 +34,8 @@ $(document).ready(function () {
                 }
             },
             {
+                "sortable": false,
+                "data": "rate",
                 'render': function (data, type, row) {
                     if (row.rate == 0.0) {
                         return 'Feedback without rate'
@@ -45,7 +44,44 @@ $(document).ready(function () {
                 }
             }
         ],
+        initComplete: function () {
+            this.api().columns(1).every(function () {
+                var column = this;
+                var select = $('<select class="form-control"><option value="">ALL</option></select>')
+                    .appendTo($(column.header()).empty())
+                    .on('change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
 
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
+            this.api().columns(4).every(function () {
+                var column = this;
+                var select = $('<select class="form-control"><option value="">ALL</option></select>')
+                    .appendTo($(column.header()).empty())
+                    .on('change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
+        }
     });
 
     table = $('#quest').DataTable({
@@ -69,9 +105,8 @@ $(document).ready(function () {
                 }
             },
             {
-                'render': function (data, type, row) {
-                    return row.trainingTitle
-                }
+                "sortable": false,
+                "data": "trainingTitle",
             },
             { "data": "questionDesc" },
             {
@@ -87,7 +122,26 @@ $(document).ready(function () {
                 }
             }
         ],
+        initComplete: function () {
+            this.api().columns(1).every(function () {
+                var column = this;
+                var select = $('<select class="form-control"><option value="">ALL</option></select>')
+                    .appendTo($(column.header()).empty())
+                    .on('change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
 
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
+        }
     });
     ClearScreen();
 });

@@ -17,7 +17,7 @@
                         <div class="col col-stats ml-3 ml-sm-0">
                             <div class="numbers">
                                 <p class="card-category">Employee</p>
-                                <h4 class="card-title">1,294</h4>
+                                <h4 class="card-title" id="countEmp">x</h4>
                             </div>
                         </div>
                     </div>
@@ -30,13 +30,13 @@
                     <div class="row align-items-center">
                         <div class="col-icon">
                             <div class="icon-big text-center icon-info bubble-shadow-small">
-                                <i class="far fa-newspaper"></i>
+                                <i class="fas fa-user-tie"></i>
                             </div>
                         </div>
                         <div class="col col-stats ml-3 ml-sm-0">
                             <div class="numbers">
                                 <p class="card-category">Trainer</p>
-                                <h4 class="card-title">1303</h4>
+                                <h4 class="card-title" id="countTrainer">x</h4>
                             </div>
                         </div>
                     </div>
@@ -49,13 +49,13 @@
                     <div class="row align-items-center">
                         <div class="col-icon">
                             <div class="icon-big text-center icon-success bubble-shadow-small">
-                                <i class="far fa-chart-bar"></i>
+                                <i class="far fa-calendar-alt"></i>
                             </div>
                         </div>
                         <div class="col col-stats ml-3 ml-sm-0">
                             <div class="numbers">
                                 <p class="card-category">Schedule</p>
-                                <h4 class="card-title">$ 1,345</h4>
+                                <h4 class="card-title" id="countSchedule"></h4>
                             </div>
                         </div>
                     </div>
@@ -68,13 +68,13 @@
                     <div class="row align-items-center">
                         <div class="col-icon">
                             <div class="icon-big text-center icon-secondary bubble-shadow-small">
-                                <i class="far fa-check-circle"></i>
+                                <i class="far fa-comments"></i>
                             </div>
                         </div>
                         <div class="col col-stats ml-3 ml-sm-0">
                             <div class="numbers">
-                                <p class="card-category">Order</p>
-                                <h4 class="card-title">576</h4>
+                                <p class="card-category">Total Feedback</p>
+                                <h4 class="card-title" id="countFeedb">576</h4>
                             </div>
                         </div>
                     </div>
@@ -125,53 +125,24 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-head-row">
-                        <h4 class="card-title">Top Trainer</h4>
+                        <h4 class="card-title">Top Training</h4>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive table-hover table-sales">
-                                <table class="table">
+                                <table class="table" >
                                     <thead>
                                         <tr>
                                             <th>Trainer</th>
                                             <th>Title</th>
                                             <th>Type Training</th>
-                                            <th class="text-center">Rate</th>
+                                            <th>Rate</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>wang cun</td>
-                                            <td>Kamus Istilah Internet</td>
-                                            <td>Soft Skill</td>
-                                            <td>5 Stars</td>
-                                        </tr>
-                                        <tr>
-                                            <td>wang cun</td>
-                                            <td>Kamus Istilah Internet</td>
-                                            <td>Soft Skill</td>
-                                            <td>5 Stars</td>
-                                        </tr>
-                                        <tr>
-                                            <td>wang cun</td>
-                                            <td>Kamus Istilah Internet</td>
-                                            <td>Soft Skill</td>
-                                            <td>5 Stars</td>
-                                        </tr>
-                                        <tr>
-                                            <td>wang cun</td>
-                                            <td>Kamus Istilah Internet</td>
-                                            <td>Soft Skill</td>
-                                            <td>5 Stars</td>
-                                        </tr>
-                                        <tr>
-                                            <td>wang cun</td>
-                                            <td>Kamus Istilah Internet</td>
-                                            <td>Soft Skill</td>
-                                            <td>5 Stars</td>
-                                        </tr>
+                                    <tbody id="TopTraining">
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -184,3 +155,6 @@
 
     </div>
 
+@section Scripts{ 
+    <script src="~/js/Scripts/DashboardScript.js"></script>
+}

@@ -20,4 +20,12 @@ namespace API.ViewModels
         public string car { get; set; }
         public int days { get; set; }
     }
+
+    public class TopTrainingVM
+    {
+        public string Title { get; set; }
+        public string Trainer { get; set; }
+        public string TypeTraining { get; set; }
+        public double Rate { get; set; }
+    }
 }
