@@ -273,11 +273,18 @@ namespace API.Controllers
                 getData.User.Employee.Phone = userVM.Phone;
                 getData.User.Employee.Address = userVM.Address;
                 getData.User.Email = userVM.Email;
-                if (!Bcrypt.Verify(userVM.Password, getData.User.Password))
+                if (userVM.Password != null)
                 {
-                    getData.User.Password = Bcrypt.HashPassword(userVM.Password);
+                    if (!Bcrypt.Verify(userVM.Password, getData.User.Password))
+                    {
+                        getData.User.Password = Bcrypt.HashPassword(userVM.Password);
+                    }
                 }
-                getData.RoleId = userVM.RoleID;
+
+                if (userVM.RoleID != null)
+                {
+                    getData.RoleId = userVM.RoleID;
+                }
 
                 _context.UserRole.Update(getData);
                 _context.SaveChanges();
@@ -339,7 +346,7 @@ namespace API.Controllers
                 var getData = _context.UserRole.Include("Role").Include("User").Include(x => x.User.Employee).SingleOrDefault(x => x.User.Email == userVM.Email);
                 if (getData == null)
                 {
-                    return NotFound();
+                    return NotFound("Email Not Found");
                 }
                 else if (userVM.Password == null || userVM.Password.Equals(""))
                 {

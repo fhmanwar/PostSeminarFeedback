@@ -176,6 +176,7 @@ function GetById(number) {
         $('#Name').val(result.name);
         $('#Site').val(result.site);
         $('#Phone').val(result.phone);
+        $('#Address').val(result.address);
         $('#RoleOption').val(result.roleID);
         $('#add').hide();
         $('#update').show();
@@ -224,10 +225,10 @@ function Save() {
 }
 
 function Update() {
-    //debugger;
+    debugger;
     var Data = new Object();
     Data.Id = $('#Id').val();
-    Data.title = $('#NIK').val();
+    Data.NIK = $('#NIK').val();
     Data.Email = $('#Email').val();
     if ($('#Pass').val() != null) {
         Data.Password = $('#Pass').val();

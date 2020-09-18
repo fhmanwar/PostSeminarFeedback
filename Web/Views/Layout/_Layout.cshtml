@@ -1,8 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http
 @{
-
     var userId = Context.Session.GetString("id");
-    var name = Context.Session.GetString("uname");
+    var name = Context.Session.GetString("name");
     var mail = Context.Session.GetString("email");
     var level = Context.Session.GetString("lvl");
     var color = "";
@@ -147,7 +146,7 @@
                         <div class="info">
                             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                                 <span>
-                                    Admin @name
+                                    @name
                                     <span class="user-level">
                                         @level
                                     </span>
@@ -158,7 +157,7 @@
 
                             <div class="collapse in" id="collapseExample">
                                 <ul class="nav">
-                                    <li><a href="#profile"><span class="link-collapse">Profile</span></a></li>
+                                    <li><a href="/profile"><span class="link-collapse">Profile</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -218,14 +217,14 @@
                         {
                             <!-- Trainer -->
                             <li class="nav-item">
-                                <a href="#">
+                                <a href="/trainer">
                                     <i class="far fa-question-circle"></i>
                                     <p>Create Question</p>
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a href="widgets.html">
+                                <a href="/trainer/myfeedback">
                                     <i class="far fa-comments"></i>
                                     <p>View Feedback</p>
                                 </a>
@@ -235,7 +234,7 @@
                         {
                             <!-- Employee -->
                             <li class="nav-item">
-                                <a href="widgets.html">
+                                <a href="/employee">
                                     <i class="far fa-comments"></i>
                                     <p>Feedback</p>
                                 </a>
@@ -253,13 +252,7 @@
                 <div class="page-inner">
                     <div class="page-header">
                         <h4 class="page-title">@ViewData["Title"]</h4>
-                        <ul class="breadcrumbs">
-                            <li class="nav-home"><a href="#"><i class="flaticon-home"></i></a></li>
-                            <li class="separator"><i class="flaticon-right-arrow"></i></li>
-                            <li class="nav-item"><a href="#">Tables</a></li>
-                            <li class="separator"><i class="flaticon-right-arrow"></i></li>
-                            <li class="nav-item"><a href="#">Datatables</a></li>
-                        </ul>
+                        @RenderSection("pageHeader", required: false)
                     </div>
 
                     @RenderBody()

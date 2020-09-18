@@ -164,7 +164,6 @@ namespace Web.Controllers
                 var byteContent = new ByteArrayContent(buffer);
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
                 if (data.Id == null)
                 {
                     var result = client.PostAsync("", byteContent).Result;
@@ -172,6 +171,7 @@ namespace Web.Controllers
                 }
                 else if (data.Id == id)
                 {
+                    client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
                     var result = client.PutAsync("" + id, byteContent).Result;
                     return Json(result);
                 }

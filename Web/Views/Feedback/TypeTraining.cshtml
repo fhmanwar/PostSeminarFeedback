@@ -4,6 +4,16 @@
     Layout = "~/Views/Layout/_Layout.cshtml";
 }
 
+@section pageHeader{
+    <ul class="breadcrumbs">
+        <li class="nav-home"><a href="/"><i class="flaticon-home"></i></a></li>
+        <li class="separator"><i class="flaticon-right-arrow"></i></li>
+        <li class="nav-item"><a href="/training">Training</a></li>
+        <li class="separator"><i class="flaticon-right-arrow"></i></li>
+        <li class="nav-item"><a href="#">@ViewData["Title"]</a></li>
+    </ul>
+}
+
 <div class="row">
 
     <div class="col-md-12">

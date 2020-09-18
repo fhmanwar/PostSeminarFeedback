@@ -1,0 +1,140 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Layout/_Layout.cshtml";
+}
+
+@section pageHeader{
+    <ul class="breadcrumbs">
+        <li class="nav-home"><a href="/"><i class="flaticon-home"></i></a></li>
+        <li class="separator"><i class="flaticon-right-arrow"></i></li>
+        <li class="nav-item"><a href="#">@ViewData["Title"]</a></li>
+    </ul>
+}
+<div class="row flex-row justify-content-center">
+
+    <div class="col-md-8">
+        <div class="card card-profile card-secondary">
+            <div class="card-header" style="background-image: url('/images/blogpost.jpg')">
+                <div class="profile-picture">
+                    <div class="avatar avatar-xl">
+                        <img src="/images/default1.png" alt="..." class="avatar-img rounded-circle">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="user-profile text-center">
+                    <div class="name">Hizrian, 19</div>
+                    <div class="job">Frontend Developer</div>
+                    <div class="desc">A man who hates loneliness</div>
+                    <div class="social-media">
+                        <a class="btn btn-info btn-twitter btn-sm btn-link" href="#">
+                            <span class="btn-label just-icon"><i class="flaticon-twitter"></i> </span>
+                        </a>
+                        <a class="btn btn-warning btn-sm btn-link" rel="publisher" href="#">
+                            <span class="btn-label just-icon"><i class="fab fa-instagram"></i> </span>
+                        </a>
+                        <a class="btn btn-primary btn-sm btn-link" rel="publisher" href="#">
+                            <span class="btn-label just-icon"><i class="flaticon-facebook"></i> </span>
+                        </a>
+                        <a class="btn btn-default btn-sm btn-link" rel="publisher" href="#">
+                            <span class="btn-label just-icon"><i class="fab fa-github"></i> </span>
+                        </a>
+                    </div>
+                    <div class="view-profile">
+                        <button class="btn btn-secondary btn-border" onclick="GetProfile();">
+                            Edit Profile
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header no-bd">
+                                        <h5 class="modal-title"><span class="fw-mediumbold">Form Data</span></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="row">
+                                                <input type="text" id="Id" name="Id" class="form-control" hidden>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>NIK</label>
+                                                        <input type="text" id="NIK" class="form-control" placeholder="Fill NIK" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Email</label>
+                                                        <input type="text" id="Email" class="form-control" placeholder="Fill Email" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Site</label>
+                                                        <input type="text" id="Site" class="form-control" placeholder="Fill Site" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Name</label>
+                                                        <input type="text" id="Name" class="form-control" placeholder="Fill Name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Phone</label>
+                                                        <input type="text" id="Phone" class="form-control" placeholder="Fill Phone">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Password</label>
+                                                        <input type="password" id="Pass" class="form-control" placeholder="Fill Password">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Confirm Password</label>
+                                                        <input type="password" id="confirmPass" class="form-control" placeholder="Fill Confirm Password">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Address</label>
+                                                        <textarea class="form-control" id="Address" rows="3" placeholder="Fill Location"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer no-bd">
+                                        <button type="button" id="update" class="btn btn-success btn-border btn-round" data-dismiss="modal" onclick="Update();">Save</button>
+                                        <button type="button" class="btn btn-secondary btn-border btn-round" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Modal -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script src="~/js/Scripts/ProfileScript.js"></script>
+}

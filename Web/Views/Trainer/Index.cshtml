@@ -1,8 +1,137 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Data Question";
     Layout = "~/Views/Layout/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+@section pageHeader{
+    <ul class="breadcrumbs">
+        <li class="nav-home"><a href="/"><i class="flaticon-home"></i></a></li>
+        <li class="separator"><i class="flaticon-right-arrow"></i></li>
+        <li class="nav-item"><a href="/Feedback">Feedback</a></li>
+        <li class="separator"><i class="flaticon-right-arrow"></i></li>
+        <li class="nav-item"><a href="#">@ViewData["Title"]</a></li>
+    </ul>
+}
 
+<div class="row">
+    <div class="col-md-4">
+        <div class="card ">
+            <div class="card-header">
+                <h5 class="card-title">Add Question</h5>
+
+            </div>
+            <div class="card-body">
+                <div class="row mt-3">
+                    <input type="text" id="Id" name="Id" class="form-control" hidden>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-default">
+                            <label>Name</label>
+                            <input type="text" class="form-control" name="name" placeholder="Name" value="@Context.Session.GetString("name")" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-default">
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="email" placeholder="Email" value="@Context.Session.GetString("email")" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="form-group form-group-default">
+                            <label>Training Title</label>
+                            <select class="form-control" id="TrainOption" name="TrainOption"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3 mb-1">
+                    <div class="col-md-12">
+                        <div class="form-group form-group-default">
+                            <label>About Me</label>
+                            <textarea class="form-control" id="Question" rows="3" placeholder="Fill Question"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right mt-3 mb-3">
+                    <button type="button" id="add" class="btn btn-success btn-border btn-round" onclick="Save();">Save</button>
+                    <button type="button" id="update" class="btn btn-warning btn-border btn-round" onclick="Update();">Update</button>
+                    <button type="reset" class="btn btn-secondary btn-border btn-round" onclick="ClearScreen();">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex flex-row align-content-between justify-content-between">
+                    <h4 class="card-title">Add Row</h4>
+                    <div data-toggle="modal" data-target="#myModal" onclick="ClearScreen();">
+                        <button class="btn btn-secondary btn-border btn-round" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- Modal -->
+                @*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header no-bd">
+                                <h5 class="modal-title"><span class="fw-mediumbold">Form Data</span></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="row">
+                                        <input type="text" id="Id" name="Id" class="form-control" hidden>
+                                        <div class="col-md-12">
+                                            <div class="form-group form-group-default">
+                                                <label>Training Title</label>
+                                                <select class="form-control" id="TrainOption" name="TrainOption"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group form-group-default">
+                                                <label>Question</label>
+                                                <textarea class="form-control" id="Question" rows="3" placeholder="Fill Question"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="modal-footer no-bd">
+                                <button type="button" id="add" class="btn btn-success btn-border btn-round" data-dismiss="modal" onclick="Save();">Insert</button>
+                                <button type="button" id="update" class="btn btn-warning btn-border btn-round" data-dismiss="modal" onclick="Update();">Update</button>
+                                <button type="button" class="btn btn-danger btn-border btn-round" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+                <div class="table-responsive">
+                    <table id="quest" class="display table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Question</th>
+                                <th width="25%">Action</th>
+                            </tr>
+                        </thead>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/Scripts/TrainerScript.js"></script>
+}

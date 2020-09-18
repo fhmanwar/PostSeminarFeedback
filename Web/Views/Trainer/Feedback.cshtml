@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewData["Title"] = "Feedback";
+    Layout = "~/Views/Layout/_Layout.cshtml";
+}
+
+@section pageHeader{
+    <ul class="breadcrumbs">
+        <li class="nav-home"><a href="/"><i class="flaticon-home"></i></a></li>
+        <li class="separator"><i class="flaticon-right-arrow"></i></li>
+        <li class="nav-item"><a href="/Feedback">Feedback</a></li>
+        <li class="separator"><i class="flaticon-right-arrow"></i></li>
+        <li class="nav-item"><a href="#">@ViewData["Title"]</a></li>
+    </ul>
+}
+
+<div class="row flex-row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex flex-row align-content-between justify-content-between">
+                    <h4 class="card-title">Add Row</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="myFeedback" class="display table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Question</th>
+                                <th>Review</th>
+                                <th>Rate</th>
+                            </tr>
+                        </thead>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/Scripts/TrainerScript.js"></script>
+}
