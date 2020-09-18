@@ -27,42 +27,26 @@
             </div>
             <div class="card-body">
                 <div class="row mt-3">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group form-group-default">
-                            <label>Name</label>
-                            <input type="text" class="form-control" name="name" placeholder="Name" value="Hizrian">
+                            <label>Trainer</label>
+                            <select class="form-control" id="TrainerOption"></select>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group form-group-default">
-                            <label>Email</label>
-                            <input type="email" class="form-control" name="email" placeholder="Name" value="hello@example.com">
+                    <div class="col-md-4">
+                        <div class="form-group form-group-default" id="cekTitle">
+                            <label>Training Title</label>
+                            <select class="form-control" id="TrainOption"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group form-group-default" id="cekschedule">
+                            <label>Date</label>
+                            <input type="date" id="ScheduleDate" class="form-control" readonly>
                         </div>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-md-4">
-                        <div class="form-group form-group-default">
-                            <label>Birth Date</label>
-                            <input type="text" class="form-control" id="datepicker" name="datepicker" value="03/21/1998" placeholder="Birth Date">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group form-group-default">
-                            <label>Gender</label>
-                            <select class="form-control" id="gender">
-                                <option>Male</option>
-                                <option>Female</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group form-group-default">
-                            <label>Phone</label>
-                            <input type="text" class="form-control" value="+62008765678" name="phone" placeholder="Phone">
-                        </div>
-                    </div>
-                </div>
+
                 <div class="row mt-3">
                     <div class="col-md-12">
                         <div class="form-group form-group-default">
@@ -88,3 +72,8 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts{
+    <script src="~/js/Scripts/EmployeeScript.js"></script>
+}
