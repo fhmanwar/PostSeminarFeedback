@@ -146,29 +146,6 @@ namespace API.Controllers
         public async Task<List<PieChartVM>> GetBar()
         { // total feedback pada title
 
-            //var user = new UserVM();
-            //var getData = await _context.Divisions
-            //                    .Join(
-            //                        _context.Departments,
-            //                        di => di.DepartmentId,
-            //                        de => de.Id,
-            //                        (di,de) => new { Divisions = di, Departments = de })
-            //                    .Where(x => x.Divisions.isDelete == false)
-            //                    .ToListAsync();
-
-            //var getData = await _context.Divisions.Include("Department").Where(x => x.isDelete == false).ToListAsync();
-            //var data = await _context.Divisions
-            //                .Join(_context.Departments, 
-            //                        di => di.DepartmentId, 
-            //                        de => de.Id, 
-            //                        (di, de) => new { 
-            //                            Divisions = di, Departments = de 
-            //                        }).GroupBy(q => q.Departments.Name).Select(q => new
-            //                        {
-            //                            GroupId = q.Key,
-            //                            Count = q.Count()
-            //                        }).ToListAsync();
-
             var getLengthTitle = await _context.Feedbacks
                                     .Include("Question")
                                     .Include(x => x.Question.Training)
