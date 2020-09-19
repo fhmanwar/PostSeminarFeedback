@@ -4,6 +4,10 @@
     Layout = "~/Views/Layout/_Layout.cshtml";
 }
 
+@section Style{ 
+    <link href="~/css/Style.css" rel="stylesheet" />
+}
+
     <div class="row">
         <div class="col-sm-6 col-md-3">
             <div class="card card-stats card-round">
@@ -17,7 +21,7 @@
                         <div class="col col-stats ml-3 ml-sm-0">
                             <div class="numbers">
                                 <p class="card-category">Employee</p>
-                                <h4 class="card-title" id="countEmp">x</h4>
+                                <h4 class="card-title" id="countEmp"></h4>
                             </div>
                         </div>
                     </div>
@@ -36,7 +40,7 @@
                         <div class="col col-stats ml-3 ml-sm-0">
                             <div class="numbers">
                                 <p class="card-category">Trainer</p>
-                                <h4 class="card-title" id="countTrainer">x</h4>
+                                <h4 class="card-title" id="countTrainer"></h4>
                             </div>
                         </div>
                     </div>
@@ -74,7 +78,7 @@
                         <div class="col col-stats ml-3 ml-sm-0">
                             <div class="numbers">
                                 <p class="card-category">Total Feedback</p>
-                                <h4 class="card-title" id="countFeedb">576</h4>
+                                <h4 class="card-title" id="countFeedb"></h4>
                             </div>
                         </div>
                     </div>
@@ -153,6 +157,42 @@
         </div>
 
 
+    </div>
+
+    <div class="row">
+        <!-- Donut Chart -->
+        <div class="col-lg-6">
+            <div class="card ">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header">
+                    <div class="card-title">Pie Chart</div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="col-md-12">
+                        <div class="amChart" id="pieChart"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Donut Chart -->
+        <div class="col-lg-6">
+            <div class="card ">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header">
+                    <div class="card-title">Bar Chart</div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="col-md-12">
+                        <div class="amChart" id="barChart"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 
 @section Scripts{ 

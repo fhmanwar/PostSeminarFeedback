@@ -98,7 +98,7 @@ namespace Web.Controllers
             IEnumerable<TopTrainingVM> top = null;
             //var token = HttpContext.Session.GetString("token");
             //client.DefaultRequestHeaders.Add("Authorization", token);
-            var resTask = client.GetAsync("TopTrainers/top");
+            var resTask = client.GetAsync("Charts/toptraining");
             resTask.Wait();
 
             var result = resTask.Result;

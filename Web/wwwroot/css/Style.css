@@ -1,4 +1,11 @@
-﻿
+﻿/* amChart */
+.amChart {
+    width: 100%;
+    max-height: 600px;
+    height: 100vh;
+}
+
+/* Rating */
 .rating {
     display: inline-block;
     border: none;
@@ -66,3 +73,5 @@
 .rating-stars ul > li.star.selected > i.fa {
     color: #FF912C;
 }
+
+/* End Rating */
