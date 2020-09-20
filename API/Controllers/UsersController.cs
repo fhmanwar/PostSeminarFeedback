@@ -208,37 +208,19 @@ namespace API.Controllers
         {
             if (ModelState.IsValid)
             {
-                client.Port = 587;
-                client.Host = "smtp.gmail.com";
-                client.EnableSsl = true;
-                client.Timeout = 10000;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential(attrEmail.mail, attrEmail.pass);
-
-                var code = randDig.GenerateRandom();
-                var fill = "Hi " + userVM.Name + "\n\n"
-                          + "Please verifty Code for this Apps : \n"
-                          + code
-                          + "\n\nThank You";
-
-                MailMessage mm = new MailMessage("donotreply@domain.com", userVM.Email, "Create Email", fill);
-                mm.BodyEncoding = UTF8Encoding.UTF8;
-                mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
-                client.Send(mm);
-
                 var user = new User
                 {
                     Email = userVM.Email,
                     Password = Bcrypt.HashPassword(userVM.Password),
-                    VerifyCode = code,
+                    VerifyCode = null,
                 };
                 _context.Users.Add(user);
-                var checkRole = _context.Roles.SingleOrDefault(x => x.Name == "User");
+                //var checkRole = _context.Roles.SingleOrDefault(x => x.Name == "User");
                 var uRole = new UserRole
                 {
                     UserId = user.Id,
-                    RoleId = checkRole.Id
+                    //RoleId = checkRole.Id
+                    RoleId = userVM.RoleID
                 };
                 _context.UserRole.Add(uRole);
                 var emp = new Employee
@@ -317,6 +299,9 @@ namespace API.Controllers
     public class AuthsController : ControllerBase
     {
         readonly MyContext _context;
+        AttrEmail attrEmail = new AttrEmail();
+        RandomDigit randDig = new RandomDigit();
+        SmtpClient client = new SmtpClient();
         public IConfiguration _configuration;
 
         public AuthsController(MyContext myContext, IConfiguration config)
@@ -329,12 +314,63 @@ namespace API.Controllers
         [Route("Register")]
         public IActionResult Register(UserVM userVM)
         {
-            UsersController _usersController = new UsersController(_context, _configuration);
             if (ModelState.IsValid)
             {
-                return _usersController.Create(userVM);
+                client.Port = 587;
+                client.Host = "smtp.gmail.com";
+                client.EnableSsl = true;
+                client.Timeout = 10000;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential(attrEmail.mail, attrEmail.pass);
+
+                var code = randDig.GenerateRandom();
+                var fill = "Hi " + userVM.Name + "\n\n"
+                          + "Please verifty Code for this Apps : \n"
+                          + code
+                          + "\n\nThank You";
+
+                MailMessage mm = new MailMessage("donotreply@domain.com", userVM.Email, "Create Email", fill);
+                mm.BodyEncoding = UTF8Encoding.UTF8;
+                mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+                client.Send(mm);
+
+                var user = new User
+                {
+                    Email = userVM.Email,
+                    Password = Bcrypt.HashPassword(userVM.Password),
+                    VerifyCode = code,
+                };
+                _context.Users.Add(user);
+                var checkRole = _context.Roles.SingleOrDefault(x => x.Name == "User");
+                var uRole = new UserRole
+                {
+                    UserId = user.Id,
+                    RoleId = checkRole.Id
+                };
+                _context.UserRole.Add(uRole);
+                var emp = new Employee
+                {
+                    EmpId = user.Id,
+                    Name = userVM.Name,
+                    NIK = userVM.NIK,
+                    AssignmentSite = userVM.Site,
+                    Phone = userVM.Phone,
+                    Address = userVM.Address,
+                    CreateData = DateTimeOffset.Now,
+                    isDelete = false
+                };
+                _context.Employees.Add(emp);
+                _context.SaveChanges();
+                return Ok("Successfully Created");
             }
-            return BadRequest("Data Not Valid");
+            return BadRequest("Not Successfully");
+            //UsersController _usersController = new UsersController(_context, _configuration);
+            //if (ModelState.IsValid)
+            //{
+            //    return _usersController.Create(userVM);
+            //}
+            //return BadRequest("Data Not Valid");
         }
 
         [HttpPost]
