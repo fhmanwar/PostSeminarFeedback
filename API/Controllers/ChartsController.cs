@@ -22,13 +22,13 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("toptraining")]
-        public async Task<List<TopTrainingVM>> GetTop()
+        public async Task<IEnumerable<TopTrainingVM>> GetTop()
         {
             var getTrainer = await _context.Trainings
                             .Include(x => x.Employee)
                             .Include("Type")
                             .Join(
-                                    _context.UserRole,
+                                    _context.UserRole.Include("Role"),
                                     emp => emp.UserId,
                                     uRole => uRole.UserId,
                                     (emp, uRole) => new { UserRole = uRole, Trainings = emp })
@@ -45,6 +45,7 @@ namespace API.Controllers
                 return null;
             }
             List<TopTrainingVM> list = new List<TopTrainingVM>();
+            //TopTrainingVM list = new TopTrainingVM();
             var getCount5 = 0.0;
             var getCount4 = 0.0;
             var getCount3 = 0.0;
@@ -95,6 +96,7 @@ namespace API.Controllers
                 };
                 list.Add(top);
             }
+            //var getLimit = list.OrderByDescending(x => x.Rate).Take(5);
             return list;
         }
 
@@ -103,34 +105,9 @@ namespace API.Controllers
         [Route("pie")]
         public async Task<List<PieChartVM>> GetPie()
         { // total feedback pada title
-
-            //var user = new UserVM();
-            //var getData = await _context.Divisions
-            //                    .Join(
-            //                        _context.Departments,
-            //                        di => di.DepartmentId,
-            //                        de => de.Id,
-            //                        (di,de) => new { Divisions = di, Departments = de })
-            //                    .Where(x => x.Divisions.isDelete == false)
-            //                    .ToListAsync();
-
-            //var getData = await _context.Divisions.Include("Department").Where(x => x.isDelete == false).ToListAsync();
-            //var data = await _context.Divisions
-            //                .Join(_context.Departments, 
-            //                        di => di.DepartmentId, 
-            //                        de => de.Id, 
-            //                        (di, de) => new { 
-            //                            Divisions = di, Departments = de 
-            //                        }).GroupBy(q => q.Departments.Name).Select(q => new
-            //                        {
-            //                            GroupId = q.Key,
-            //                            Count = q.Count()
-            //                        }).ToListAsync();
-
             var getLengthTitle = await _context.Feedbacks
                                     .Include("Question")
                                     .Include(x => x.Question.Training)
-                                    .Where(x => x.isDelete == false)
                                     .GroupBy(grup => grup.Question.Training.Title)
                                     .Select(y => new PieChartVM
                                     {
@@ -143,13 +120,11 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("bar")]
-        public async Task<List<PieChartVM>> GetBar()
+        public async Task<List<BarChartVM>> GetBar()
         { // total feedback pada title
-
-            var getLengthTitle = await _context.Feedbacks
+            var getTitle = await _context.Feedbacks
                                     .Include("Question")
                                     .Include(x => x.Question.Training)
-                                    .Where(x => x.isDelete == false)
                                     .GroupBy(grup => grup.Question.Training.Title)
                                     .Select(y => new PieChartVM
                                     {
@@ -157,7 +132,60 @@ namespace API.Controllers
                                         Total = y.Count()
                                     })
                                     .ToListAsync();
-            return getLengthTitle;
+
+            if (getTitle.Count == 0)
+            {
+                return null;
+            }
+            List<BarChartVM> list = new List<BarChartVM>();
+            var getCount5 = 0.0;
+            var getCount4 = 0.0;
+            var getCount3 = 0.0;
+            var getCount2 = 0.0;
+            var getCount1 = 0.0;
+            foreach (var item in getTitle)
+            {                
+                var getLengthTitle = await _context.Feedbacks
+                                   .Include("Question")
+                                   .Include(x => x.Question.Training)
+                                   .Where(x => x.Question.Training.Title == item.Title)
+                                   .ToListAsync();
+                foreach (var item2 in getLengthTitle)
+                {
+                    if (item2.Rate > 4.0)
+                    {
+                        getCount5++;
+                    }
+                    else if (item2.Rate > 3.0)
+                    {
+                        getCount4++;
+                    }
+                    else if (item2.Rate > 2.0)
+                    {
+                        getCount3++;
+                    }
+                    else if (item2.Rate > 1.0)
+                    {
+                        getCount2++;
+                    }
+                    else if (item2.Rate == 1.0)
+                    {
+                        getCount1++;
+                    }
+                }
+
+                var top = new BarChartVM()
+                {
+                    Title = item.Title,
+                    star1 = getCount5,
+                    star2 = getCount4,
+                    star3 = getCount3,
+                    star4 = getCount2,
+                    star5 = getCount1,
+                };
+                list.Add(top);
+            }
+            return list;
         }
 
     }

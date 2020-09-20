@@ -20,6 +20,31 @@ namespace API.Controllers
             _context = myContext;
         }
 
+        [HttpGet]
+        [Route("Alltrainer")]
+        public async Task<List<TrainerRoleVM>> GetTrainer()
+        {
+            var getTrainer = await _context.UserRole.Include("Role").Include("User").Include(x => x.User.Employee)
+                            .Where(x => x.User.Employee.isDelete == false && x.Role.Name == "Trainer")
+                            .ToListAsync();
+            if (getTrainer.Count == 0)
+            {
+                return null;
+            }
+            List<TrainerRoleVM> list = new List<TrainerRoleVM>();
+            foreach (var item in getTrainer)
+            {
+                var trainer = new TrainerRoleVM()
+                {
+                    EmpId = item.User.Employee.EmpId,
+                    EmployeeName = item.User.Employee.Name,
+                    RoleName = item.Role.Name,
+                };
+                list.Add(trainer);
+            }
+            return list;
+        }
+
         [HttpGet("trainer/{id}")]
         public async Task<List<TrainerVM>> GetTrainer(string id)
         {

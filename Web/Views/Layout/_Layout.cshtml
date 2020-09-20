@@ -125,7 +125,7 @@
                         </li>
                         <li class="nav-item dropdown hidden-caret">
                             <a class="nav-link dropdown-toggle" href="/logout" role="button">
-                                <i class="fas fa-sign-out-alt"></i>
+                                <i class="fas fa-sign-out-alt" data-toggle="tooltip" data-animation="false" title="Logout"></i>
                             </a>
                         </li>
                     </ul>
@@ -297,6 +297,15 @@
 
     <!-- Azzara JS -->
     <script src="~/js/ready.min.js"></script>
+
+    <!-- Plugin dataTable -->
+    <script src="~/js/dataTable-plugin/dataTables.buttons.min.js"></script>
+    <script src="~/js/dataTable-plugin/buttons.flash.min.js"></script>
+    <script src="~/js/dataTable-plugin/jszip.min.js"></script>
+    <script src="~/js/dataTable-plugin/pdfmake.min.js"></script>
+    <script src="~/js/dataTable-plugin/vfs_fonts.js"></script>
+    <script src="~/js/dataTable-plugin/buttons.html5.min.js"></script>
+    <script src="~/js/dataTable-plugin/buttons.print.min.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

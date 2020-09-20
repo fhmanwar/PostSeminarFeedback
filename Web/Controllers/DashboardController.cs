@@ -106,6 +106,29 @@ namespace Web.Controllers
             {
                 var readTask = result.Content.ReadAsAsync<List<TopTrainingVM>>();
                 readTask.Wait();
+                top = readTask.Result.OrderByDescending(x => x.Rate).Take(5);
+            }
+            else
+            {
+                top = Enumerable.Empty<TopTrainingVM>();
+                ModelState.AddModelError(string.Empty, "Server Error try after sometimes.");
+            }
+            return Json(top);
+        }
+
+        public IActionResult LoadTopBar()
+        {
+            IEnumerable<TopTrainingVM> top = null;
+            //var token = HttpContext.Session.GetString("token");
+            //client.DefaultRequestHeaders.Add("Authorization", token);
+            var resTask = client.GetAsync("Charts/toptraining");
+            resTask.Wait();
+
+            var result = resTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<List<TopTrainingVM>>();
+                readTask.Wait();
                 top = readTask.Result;
             }
             else
@@ -141,22 +164,22 @@ namespace Web.Controllers
 
         public IActionResult LoadBar()
         {
-            IEnumerable<PieChartVM> bar = null;
+            IEnumerable<BarChartVM> bar = null;
             //var token = HttpContext.Session.GetString("token");
             //client.DefaultRequestHeaders.Add("Authorization", token);
-            var resTask = client.GetAsync("charts/pie");
+            var resTask = client.GetAsync("charts/bar");
             resTask.Wait();
 
             var result = resTask.Result;
             if (result.IsSuccessStatusCode)
             {
-                var readTask = result.Content.ReadAsAsync<List<PieChartVM>>();
+                var readTask = result.Content.ReadAsAsync<List<BarChartVM>>();
                 readTask.Wait();
                 bar = readTask.Result;
             }
             else
             {
-                bar = Enumerable.Empty<PieChartVM>();
+                bar = Enumerable.Empty<BarChartVM>();
                 ModelState.AddModelError(string.Empty, "Server Error try after sometimes.");
             }
             return Json(bar);

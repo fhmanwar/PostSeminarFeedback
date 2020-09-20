@@ -28,4 +28,11 @@ namespace API.ViewModels
         public string Review { get; set; }
         public double Rate { get; set; }
     }
+
+    public class TrainerRoleVM
+    {
+        public string EmpId { get; set; }
+        public string EmployeeName { get; set; }
+        public string RoleName { get; set; }
+    }
 }

@@ -207,7 +207,7 @@ LoadData($('#RoleOption'))
 
 //user
 function GetById(number) {
-    debugger;
+    //debugger;
     var getid = table.row(number).data().id;
     $.ajax({
         url: "/account/GetById/",
@@ -230,7 +230,7 @@ function GetById(number) {
 
 function Save() {
     if ($('#confirmPass').val() == $('#Pass').val()) {
-        debugger;
+        //debugger;
         var Data = new Object();
         //Data.Id = ;
         Data.NIK = $('#NIK').val();
@@ -248,7 +248,7 @@ function Save() {
             dataType: "JSON",
             data: Data
         }).then((result) => {
-            debugger;
+            //debugger;
             if (result.statusCode == 200) {
                 Swal.fire({
                     position: 'center',
@@ -269,7 +269,7 @@ function Save() {
 }
 
 function Update() {
-    debugger;
+    //debugger;
     var Data = new Object();
     Data.Id = $('#Id').val();
     Data.NIK = $('#NIK').val();

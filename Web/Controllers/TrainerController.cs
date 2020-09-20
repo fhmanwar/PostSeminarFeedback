@@ -26,6 +26,28 @@ namespace Web.Controllers
             return View("~/Views/Trainer/Feedback.cshtml");
         }
 
+        public IActionResult GetAllTrainer()
+        {
+            IEnumerable<TrainerVM> trainerVM = null;
+            //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
+            var resTask = client.GetAsync("alltrainer");
+            resTask.Wait();
+
+            var result = resTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<List<TrainerVM>>();
+                readTask.Wait();
+                trainerVM = readTask.Result;
+            }
+            else
+            {
+                trainerVM = Enumerable.Empty<TrainerVM>();
+                ModelState.AddModelError(string.Empty, "Server Error try after sometimes.");
+            }
+            return Json(trainerVM);
+        }
+
         public IActionResult Loadtrainer()
         {
             IEnumerable<TrainerVM> trainerVM = null;

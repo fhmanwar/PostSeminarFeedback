@@ -16,9 +16,12 @@ namespace API.ViewModels
     }
     public class BarChartVM
     {
-        public string date { get; set; }
-        public string car { get; set; }
-        public int days { get; set; }
+        public string Title { get; set; }
+        public double star1 { get; set; }
+        public double star2 { get; set; }
+        public double star3 { get; set; }
+        public double star4 { get; set; }
+        public double star5 { get; set; }
     }
 
     public class TopTrainingVM

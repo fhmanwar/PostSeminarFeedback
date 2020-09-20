@@ -44,6 +44,81 @@ $(document).ready(function () {
                 }
             }
         ],
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fas fa-file-pdf" data-placement="Bottom" data-toggle="tooltip" data-animation="false" title="PDF" ></i>',
+                className: 'btn btn-danger btn-border',
+                title: 'Feedback List',
+                filename: 'Feedback ' + moment(),
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4],
+                    search: 'applied',
+                    order: 'applied',
+                },
+                customize: function (doc) {
+                    //doc.content[1].margin = [150, 0, 130, 0]  //left, top, right, bottom
+                    var rowCount = doc.content[1].table.body.length;
+                    for (i = 1; i < rowCount; i++) {
+                        doc.content[1].table.body[i][2].alignment = 'center';
+                    };
+                    doc.content[1].table.body[0][0].text = 'No.';
+                    doc.content[1].table.body[0][1].text = 'Training TItle';
+                    doc.content[1].table.body[0][4].text = 'Rate';
+                    doc['footer'] = (function (page, pages) {
+                        return {
+                            columns: [
+                                'This is your left footer column',
+                                {
+                                    // This is the right column
+                                    alignment: 'right',
+                                    text: ['page ', { text: page.toString() }, ' of ', { text: pages.toString() }]
+                                }
+                            ],
+                            margin: [10, 0]
+                        }
+                    });
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fas fa-file-excel" data-placement="Bottom" data-toggle="tooltip" data-animation="false" title="Excel" ></i>',
+                className: 'btn btn-success btn-border',
+                title: 'Feedback List',
+                filename: 'Feedback ' + moment(),
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4],
+                    search: 'applied',
+                    order: 'applied',
+                },
+                customize: function (excel) {
+                    //debugger;
+                    var sheet = excel.xl.worksheets['sheet1.xml'];
+                    $('c[r=A2] t', sheet).text('No.');
+                    $('c[r=B2] t', sheet).text('Training TItle');
+                    $('c[r=E2] t', sheet).text('Rate');
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                text: '<i class="far fa-file-alt" data-placement="Bottom" data-toggle="tooltip" data-animation="false" title="CSV"></i>',
+                className: 'btn btn-info btn-border',
+                title: 'Feedback List',
+                filename: 'Feedback ' + moment(),
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4],
+                    search: 'applied',
+                    order: 'applied',
+                },
+            },
+            {
+                extend: 'print',
+                text: '<i class="fas fa-print" data-placement="Bottom" data-toggle="tooltip" data-animation="false" title="Print"></i>',
+                className: 'btn btn-secondary btn-border',
+                title: 'Feedback List',
+            }
+        ],
         initComplete: function () {
             this.api().columns(1).every(function () {
                 var column = this;

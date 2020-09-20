@@ -135,19 +135,18 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="table-responsive table-hover table-sales">
-                                <table class="table" >
+                            <div class="table-responsive">
+                                <table class="display table table-striped table-hover" id="TopTraining">
                                     <thead>
                                         <tr>
+                                            <th>#</th>
                                             <th>Trainer</th>
                                             <th>Title</th>
                                             <th>Type Training</th>
                                             <th>Rate</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="TopTraining">
-                                        
-                                    </tbody>
+                                    @*<tbody id="TopTraining"></tbody>*@
                                 </table>
                             </div>
                         </div>
@@ -160,12 +159,12 @@
     </div>
 
     <div class="row">
-        <!-- Donut Chart -->
+        <!-- pie Chart -->
         <div class="col-lg-6">
             <div class="card ">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header">
-                    <div class="card-title">Pie Chart</div>
+                    <div class="card-title">Pie Chart Training Title</div>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -177,17 +176,32 @@
             </div>
         </div>
 
-        <!-- Donut Chart -->
+        <!-- bar Chart -->
         <div class="col-lg-6">
+            <div class="card ">
+                <div class="card-header">
+                    <div class="card-title">Data Rating over Title</div>
+                </div>
+                <div class="card-body">
+                    <div class="col-md-12">
+                        <div class="amChart" id="barChart"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- group bar Chart -->
+        <div class="col-lg-12">
             <div class="card ">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header">
-                    <div class="card-title">Bar Chart</div>
+                    <div class="card-title">Data over Rating</div>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="col-md-12">
-                        <div class="amChart" id="barChart"></div>
+                        <div class="amChart" id="groupbarChart"></div>
                     </div>
 
                 </div>
