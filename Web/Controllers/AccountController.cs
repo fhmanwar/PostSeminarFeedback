@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using API.Context;
+using API.Models;
 using API.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -68,20 +70,22 @@ namespace Web.Controllers
         {
             try
             {
+                AuthController controller = new AuthController();
                 var json = JsonConvert.SerializeObject(data);
                 var buffer = System.Text.Encoding.UTF8.GetBytes(json);
                 var byteContent = new ByteArrayContent(buffer);
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
                 //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
                 if (data.Id == null)
                 {
                     var result = client.PostAsync("", byteContent).Result;
+                    controller.SendLogs(HttpContext.Session.GetString("email") + " Create role", HttpContext.Session.GetString("email"));
                     return Json(result);
                 }
                 else if (data.Id == id)
                 {
                     var result = client.PutAsync("" + id, byteContent).Result;
+                    controller.SendLogs(HttpContext.Session.GetString("email") + " Update role", HttpContext.Session.GetString("email"));
                     return Json(result);
                 }
 
@@ -97,6 +101,8 @@ namespace Web.Controllers
         {
             //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
             var result = client.DeleteAsync("" + id).Result;
+            AuthController controller = new AuthController();
+            controller.SendLogs(HttpContext.Session.GetString("email") + " Delete role", HttpContext.Session.GetString("email"));
             return Json(result);
         }
 
@@ -159,20 +165,22 @@ namespace Web.Controllers
         {
             try
             {
+                AuthController controller = new AuthController();
                 var json = JsonConvert.SerializeObject(data);
                 var buffer = System.Text.Encoding.UTF8.GetBytes(json);
                 var byteContent = new ByteArrayContent(buffer);
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
                 if (data.Id == null)
                 {
                     var result = client.PostAsync("", byteContent).Result;
+                    controller.SendLogs(HttpContext.Session.GetString("email") + " Create Account", HttpContext.Session.GetString("email"));
                     return Json(result);
                 }
                 else if (data.Id == id)
                 {
                     client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
                     var result = client.PutAsync("" + id, byteContent).Result;
+                    controller.SendLogs(HttpContext.Session.GetString("email") + " Update Account", HttpContext.Session.GetString("email"));
                     return Json(result);
                 }
 
@@ -188,6 +196,8 @@ namespace Web.Controllers
         {
             client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
             var result = client.DeleteAsync("" + id).Result;
+            AuthController controller = new AuthController();
+            controller.SendLogs(HttpContext.Session.GetString("email") + " Delete Account", HttpContext.Session.GetString("email"));
             return Json(result);
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using API.Context;
 using API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -81,14 +82,17 @@ namespace Web.Controllers
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
                 //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
+                AuthController controller = new AuthController();
                 if (typeTrains.Id == 0)
                 {
                     var result = client.PostAsync("", byteContent).Result;
+                    controller.SendLogs(HttpContext.Session.GetString("email") + " Create Type", HttpContext.Session.GetString("email"));
                     return Json(result);
                 }
                 else if (typeTrains.Id == id)
                 {
                     var result = client.PutAsync("" + id, byteContent).Result;
+                    controller.SendLogs(HttpContext.Session.GetString("email") + " Update Type", HttpContext.Session.GetString("email"));
                     return Json(result);
                 }
 
@@ -104,6 +108,8 @@ namespace Web.Controllers
         {
             //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
             var result = client.DeleteAsync("" + id).Result;
+            AuthController controller = new AuthController();
+            controller.SendLogs(HttpContext.Session.GetString("email") + " Delete Type", HttpContext.Session.GetString("email"));
             return Json(result);
         }
     }
@@ -177,14 +183,17 @@ namespace Web.Controllers
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
                 //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
+                AuthController controller = new AuthController();
                 if (trains.Id == 0)
                 {
                     var result = client.PostAsync("", byteContent).Result;
+                    controller.SendLogs(HttpContext.Session.GetString("email") + " Create Training", HttpContext.Session.GetString("email"));
                     return Json(result);
                 }
                 else if (trains.Id == id)
                 {
                     var result = client.PutAsync("" + id, byteContent).Result;
+                    controller.SendLogs(HttpContext.Session.GetString("email") + " Update Training", HttpContext.Session.GetString("email"));
                     return Json(result);
                 }
 
@@ -200,6 +209,8 @@ namespace Web.Controllers
         {
             //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
             var result = client.DeleteAsync("" + id).Result;
+            AuthController controller = new AuthController();
+            controller.SendLogs(HttpContext.Session.GetString("email") + " Delete Training", HttpContext.Session.GetString("email"));
             return Json(result);
         }
     }
@@ -273,15 +284,18 @@ namespace Web.Controllers
                 var byteContent = new ByteArrayContent(buffer);
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
+                AuthController controller = new AuthController();
                 //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
                 if (questions.Id == 0)
                 {
                     var result = client.PostAsync("", byteContent).Result;
+                    controller.SendLogs(HttpContext.Session.GetString("email") + " Create Qustion", HttpContext.Session.GetString("email"));
                     return Json(result);
                 }
                 else if (questions.Id == id)
                 {
                     var result = client.PutAsync("" + id, byteContent).Result;
+                    controller.SendLogs(HttpContext.Session.GetString("email") + " Update Qustion", HttpContext.Session.GetString("email"));
                     return Json(result);
                 }
 
@@ -297,6 +311,8 @@ namespace Web.Controllers
         {
             //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
             var result = client.DeleteAsync("" + id).Result;
+            AuthController controller = new AuthController();
+            controller.SendLogs(HttpContext.Session.GetString("email") + " Delete Qustion", HttpContext.Session.GetString("email"));
             return Json(result);
         }
     }

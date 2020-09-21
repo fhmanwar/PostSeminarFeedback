@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using API.Models;
 using API.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -183,6 +184,29 @@ namespace Web.Controllers
                 ModelState.AddModelError(string.Empty, "Server Error try after sometimes.");
             }
             return Json(bar);
+        }
+
+        public IActionResult LoadLog()
+        {
+            IEnumerable<LogActivity> log = null;
+            //var token = HttpContext.Session.GetString("token");
+            //client.DefaultRequestHeaders.Add("Authorization", token);
+            var resTask = client.GetAsync("logs");
+            resTask.Wait();
+
+            var result = resTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<List<LogActivity>>();
+                readTask.Wait();
+                log = readTask.Result;
+            }
+            else
+            {
+                log = Enumerable.Empty<LogActivity>();
+                ModelState.AddModelError(string.Empty, "Server Error try after sometimes.");
+            }
+            return Json(log);
         }
     }
 }

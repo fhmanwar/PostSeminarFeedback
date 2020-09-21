@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using API.Context;
+using API.Models;
 using API.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +18,7 @@ namespace Web.Controllers
     {
         readonly HttpClient client = new HttpClient
         {
-            BaseAddress = new Uri("https://localhost:44337/api/auths/")
+            BaseAddress = new Uri("https://localhost:44337/api/")
         };
 
         [Route("login")]
@@ -62,11 +64,12 @@ namespace Web.Controllers
                 HttpResponseMessage result = null;
                 if (userVM.VerifyCode != null)
                 { // Verify Code
-                    result = client.PostAsync("code/", byteContent).Result;
+                    result = client.PostAsync("auths/code/", byteContent).Result;
+                    SendLogs(userVM.Email + " VerifyCode Successfully", userVM.Email);
                 }
                 else if (userVM.VerifyCode == null)
                 { // Login
-                    result = client.PostAsync("login/", byteContent).Result;
+                    result = client.PostAsync("auths/login/", byteContent).Result;
                 }
 
                 if (result.IsSuccessStatusCode)
@@ -91,6 +94,7 @@ namespace Web.Controllers
                             HttpContext.Session.SetString("name", account.Name);
                             HttpContext.Session.SetString("email", account.Email);
                             HttpContext.Session.SetString("lvl", account.RoleName);
+                            SendLogs(userVM.Email + " Login", userVM.Email);
                             if (account.RoleName == "Admin")
                             {
                                 return Json(new { status = true, msg = "Login Successfully !" });
@@ -105,14 +109,32 @@ namespace Web.Controllers
             }
             else if (userVM.Name != null)
             { // Register
-                var result = client.PostAsync("register/", byteContent).Result;
+                var result = client.PostAsync("auths/register/", byteContent).Result;
                 if (result.IsSuccessStatusCode)
                 {
+                    SendLogs(userVM.Email + " Register", userVM.Email);
                     return Json(new { status = true, code = result, msg = "Register Success! " });
                 }
                 return Json(new { status = false, msg = result.Content.ReadAsStringAsync().Result });
             }
             return Redirect("/login");
         }
+
+        public IActionResult SendLogs(string response, string msg)
+        {
+            var log = new LogActivity
+            {
+                Response = response,
+                Email = msg,
+            };
+            var jsonLog = JsonConvert.SerializeObject(log);
+            var bufferLog = System.Text.Encoding.UTF8.GetBytes(jsonLog);
+            var byteContentLog = new ByteArrayContent(bufferLog);
+            byteContentLog.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var sendLog = client.PostAsync("logs/", byteContentLog).Result;
+            return Json(sendLog);
+        }
+
+
     }
 }

@@ -1,7 +1,41 @@
 ﻿var table = null;
+var tblLog = null;
 var arrData = [];
 
 $(document).ready(function () {
+    tblLog = $('#Logs').DataTable({
+        "processing": true,
+        "responsive": true,
+        //"serverSide": true,
+        "pagination": true,
+        "stateSave": true,
+        "ajax": {
+            url: "/Dashboard/LoadLog",
+            type: "GET",
+            dataType: "json",
+            dataSrc: "",
+        },
+        "columns": [
+            //{
+            //    render: function (data, type, row, meta) {
+            //        return meta.row + meta.settings._iDisplayStart + 1;
+            //    }
+            //},
+            {
+                "data": "createDate",
+                'render': function (jsonDate) {
+                    var date = new Date(jsonDate);
+                    return moment(date).format('DD MMMM YYYY') + '<br> Time : ' + moment(date).format('HH: mm');
+                }
+            },
+            { "data": "response" },
+            { "data": "email" },
+        ],
+    });
+    setInterval(function () {
+        tblLog.ajax.reload(null, false); 
+    }, 3000);
+
     $.ajax({
         url: "/account/Loaddata",
         type: "GET",
@@ -84,6 +118,7 @@ $(document).ready(function () {
         ],
 
     });
+
     //$.ajax({
     //    url: "/Dashboard/LoadTop",
     //    type: "GET",

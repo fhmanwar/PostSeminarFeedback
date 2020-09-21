@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using API.Context;
 using API.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -75,14 +77,17 @@ namespace Web.Controllers
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
                 //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
+                AuthController controller = new AuthController();
                 if (datas.Id == 0)
                 {
                     var result = client.PostAsync("", byteContent).Result;
+                    controller.SendLogs(HttpContext.Session.GetString("email") + " Create Feedback", HttpContext.Session.GetString("email"));
                     return Json(result);
                 }
                 else if (datas.Id == id)
                 {
                     var result = client.PutAsync("" + id, byteContent).Result;
+                    controller.SendLogs(HttpContext.Session.GetString("email") + " Update Feedback", HttpContext.Session.GetString("email"));
                     return Json(result);
                 }
 
@@ -98,6 +103,8 @@ namespace Web.Controllers
         {
             //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
             var result = client.DeleteAsync("" + id).Result;
+            AuthController controller = new AuthController();
+            controller.SendLogs(HttpContext.Session.GetString("email") + " Delete Feedback", HttpContext.Session.GetString("email"));
             return Json(result);
         }
     }

@@ -474,7 +474,68 @@ namespace API.Controllers
                         );
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+    }
 
+    [Route("api/[controller]")]
+    [ApiController]
+    public class LogsController : ControllerBase
+    {
+        readonly MyContext _context;
+        public IConfiguration _configuration;
 
+        public LogsController(MyContext myContext, IConfiguration config)
+        {
+            _context = myContext;
+            _configuration = config;
+        }
+
+        [HttpGet]
+        public async Task<List<LogActivity>> GetAll()
+        {
+            var getData = await _context.LogActivities
+                                .Join(
+                                    _context.Employees.Include("User"),
+                                    log => log.Email,
+                                    uRole => uRole.User.Email,
+                                    (log, uRole) => new { Employees = uRole, LogActivities = log })
+                                .Where(x => x.LogActivities.Email == x.Employees.User.Email)
+                                .ToListAsync();
+            if (getData.Count == 0)
+            {
+                return null;
+            }
+            List<LogActivity> list = new List<LogActivity>();
+            foreach (var item in getData)
+            {
+                var log = new LogActivity()
+                {
+                    Id = item.LogActivities.Id,
+                    Response = item.LogActivities.Response,
+                    Email = item.Employees.Name,
+                    CreateDate = item.LogActivities.CreateDate,
+                };
+                list.Add(log);
+            }
+            return list;
+        }
+
+        [HttpPost]
+        public IActionResult Create(LogActivity logActivity)
+        {
+            if (ModelState.IsValid)
+            {
+                var log = new LogActivity
+                {
+                    Response = logActivity.Response,
+                    Email = logActivity.Email,
+                    CreateDate = DateTimeOffset.Now
+                };
+                _context.LogActivities.Add(log);
+                _context.SaveChanges();
+                return Ok("Successfully Created");
+            }
+            return BadRequest("Not Successfully");
+        }
+                
     }
 }

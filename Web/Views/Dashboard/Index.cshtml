@@ -88,7 +88,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        @*<div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">Log Activity</div>
@@ -122,8 +122,34 @@
                     </ol>
                 </div>
             </div>
-        </div>
+        </div>*@
 
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-head-row">
+                        <h4 class="card-title">Log Activity</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="display table table-striped table-hover" id="Logs">
+                                    <thead>
+                                        <tr>
+                                            <th>Response</th>
+                                            <th>Email</th>
+                                            <th>Date & Time</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="col-md-6">
             <div class="card">
@@ -146,7 +172,6 @@
                                             <th>Rate</th>
                                         </tr>
                                     </thead>
-                                    @*<tbody id="TopTraining"></tbody>*@
                                 </table>
                             </div>
                         </div>

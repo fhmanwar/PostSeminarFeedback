@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using API.Context;
 using API.Models;
 using API.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -106,9 +107,11 @@ namespace Web.Controllers
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
                 //client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("token"));
+                AuthController controller = new AuthController();
                 if (datas.Id == 0)
                 {
                     var result = client.PostAsync("feedbacks", byteContent).Result;
+                    controller.SendLogs(HttpContext.Session.GetString("email") + " Add Feedback", HttpContext.Session.GetString("email"));
                     return Json(result);
                 }
                 return Json(404);

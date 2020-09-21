@@ -18,6 +18,7 @@ namespace API.Context
         public DbSet<Training> Trainings { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<LogActivity> LogActivities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
